@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ferramenta de Descoberta de Valores</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@400;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <!-- Seu logo pode ir aqui -->
+            <h1>Ferramenta de Descoberta de Valores</h1>
+            <p class="subtitle">Sua bússola interna para decisões mais claras</p>
+        </header>
+
+        <main id="app">
+            <!-- ETAPA 1: PONTUAÇÃO DOS VALORES -->
+            <section id="step1" class="step active">
+                <h2>Etapa 1: Mapeie seus Valores</h2>
+                <p class="instructions">Para cada valor abaixo, dê duas notas de 0 a 10.   
+<b>(I ) Importância:</b> O quão importante é ter este valor preenchido na sua vida?   
+<b>(S) Sentimento:</b> O quão mal você se sente quando este valor é desrespeitado?</p>
+                <div id="values-list">
+                    <!-- A lista de valores será inserida aqui pelo JavaScript -->
+                </div>
+                <div class="custom-value-adder">
+                    <h3>Sentiu falta de algum valor?</h3>
+                    <div class="input-group">
+                        <input type="text" id="custom-value-name" placeholder="Digite o nome do seu valor pessoal">
+                        <button id="add-custom-value-btn">+ Adicionar</button>
+                    </div>
+                </div>
+                <button id="goto-step2-btn" class="primary-btn" disabled>Analisar meus Top 5 Valores</button>
+            </section>
+
+            <!-- ETAPA 2: SIGNIFICADO PESSOAL -->
+            <section id="step2" class="step">
+                <h2>Etapa 2: O Significado por Trás dos Valores</h2>
+                <p class="instructions">Estes são seus 5 valores principais. Agora, descreva com suas próprias palavras o que cada um deles significa para você. Seja específico.</p>
+                <div id="top5-meaning-list">
+                    <!-- A lista do Top 5 para significado será inserida aqui -->
+                </div>
+                <button id="goto-step3-btn" class="primary-btn">Próximo Passo</button>
+            </section>
+
+            <!-- ETAPA 3: MOTIVADORES E SABOTADORES -->
+            <section id="step3" class="step">
+                <h2>Etapa 3: Motivadores e Sabotadores</h2>
+                <p class="instructions">Para finalizar, identifique os comportamentos e situações que reforçam (Motivadores) ou enfraquecem (Sabotadores) cada um dos seus valores no dia a dia.</p>
+                <div id="top5-triggers-list">
+                    <!-- A lista do Top 5 para motivadores/sabotadores será inserida aqui -->
+                </div>
+                <button id="finish-btn" class="primary-btn">Finalizar e Ver meu Relatório</button>
+            </section>
+
+            <!-- ETAPA 4: RELATÓRIO FINAL -->
+            <section id="step4" class="step">
+                <h2>Seu Relatório de Valores</h2>
+                <p class="instructions">Parabéns por concluir a jornada! Use este mapa como um guia para suas decisões e ações. Abaixo está o resumo completo da sua hierarquia de valores.</p>
+                <div id="final-report">
+                    <!-- O relatório final será gerado aqui -->
+                </div>
+                <div class="capture-lead">
+                    <h3>Gostou do resultado?</h3>
+                    <p>Receba uma cópia completa deste relatório no seu e-mail.</p>
+                    <input type="text" id="user-name" placeholder="Seu nome">
+                    <input type="email" id="user-email" placeholder="Seu melhor e-mail">
+                    <button id="send-report-btn" class="primary-btn">Enviar Relatório por E-mail</button>
+                </div>
+            </section>
+        </main>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>

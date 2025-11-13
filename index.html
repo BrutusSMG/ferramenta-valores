@@ -21,9 +21,13 @@
             <!-- ETAPA 1: PONTUAÇÃO DOS VALORES -->
             <section id="step1" class="step active">
                 <h2>Etapa 1: Mapeie seus Valores</h2>
-                <p class="instructions">Para cada valor abaixo, dê duas notas de 0 a 10.</br>
-                    <b>(I) Importância:</b> O quão importante é ter este valor preenchido na sua vida? 0 = Sem importância | 10 = Total importância</br>  
-                    <b>(S) Sentimento:</b> O quão mal você se sente quando este valor é desrespeitado? 0 = Nenhum pouco mal | 10 = Totalmente mal</p>
+                <p class="instructions">
+                    Para cada valor abaixo, dê duas notas de 0 a 10.  
+
+                    <b>(I ) Importância:</b> 0 = Sem importância | 10 = Total importância  
+
+                    <b>(S) Sentimento:</b> 0 = Nenhum pouco mal | 10 = Totalmente mal
+                </p>
                 <div id="values-list">
                     <!-- A lista de valores será inserida aqui pelo JavaScript -->
                 </div>
@@ -40,7 +44,7 @@
             <!-- ETAPA 2: SIGNIFICADO PESSOAL -->
             <section id="step2" class="step">
                 <h2>Etapa 2: O Significado por Trás dos Valores</h2>
-                <p class="instructions">Estes são seus 5 valores principais. Agora, descreva com suas próprias palavras o que cada um deles significa para você. Seja específico.</p>
+                <p class="instructions">Estes são seus 5 valores principais. Agora, descreva com suas próprias palavras o que cada um deles significa para você. Se não concordar com a lista, use o botão "Trocar" para ajustá-la.</p>
                 <div id="top5-meaning-list">
                     <!-- A lista do Top 5 para significado será inserida aqui -->
                 </div>
@@ -48,14 +52,31 @@
             </section>
 
             <!-- ETAPA 3: MOTIVADORES E SABOTADORES -->
-            <section id="step3" class="step">
-                <h2>Etapa 3: Motivadores e Sabotadores</h2>
-                <p class="instructions">Para finalizar, identifique os comportamentos e situações que reforçam (Motivadores) ou enfraquecem (Sabotadores) cada um dos seus valores no dia a dia.</p>
-                <div id="top5-triggers-list">
-                    <!-- A lista do Top 5 para motivadores/sabotadores será inserida aqui -->
-                </div>
-                <button id="finish-btn" class="primary-btn">Finalizar e Ver meu Relatório</button>
-            </section>
+	    <section id="step3" class="step">
+    		<h2>Etapa 3: Motivadores e Sabotadores</h2>
+    		<p class="instructions">Para finalizar, identifique os comportamentos e situações que reforçam (Motivadores) ou enfraquecem (Sabotadores) cada um dos seus valores no dia a dia.</p>
+
+    		<!-- NOVO BLOCO DE EXEMPLO -->
+		<div class="example-box">
+    		    <p><strong>Exemplo prático para o valor "Justiça":</strong></p>
+    		    <ul>
+        		<li>
+            		    <strong>Ajuda (Motivador):</strong> "Meu senso de 'Justiça' me ajuda a ser um líder melhor, pois garanto que minha equipe seja tratada de forma igualitária, o que aumenta a motivação de todos."
+        		</li>
+        		<li>
+            		    <strong>Atrapalha (Sabotador):</strong> "Às vezes, meu senso de 'Justiça' me atrapalha, pois gasto muita energia em pequenas discussões que considero 'injustas', me desviando do meu objetivo principal."
+        		</li>
+    		    </ul>
+		</div>
+		<!-- FIM DO NOVO BLOCO -->
+
+
+    		<div id="top5-triggers-list">
+        	    <!-- A lista do Top 5 para motivadores/sabotadores será inserida aqui -->
+    		</div>
+    		<button id="finish-btn" class="primary-btn">Finalizar e Ver meu Relatório</button>
+	    </section>
+
 
             <!-- ETAPA 4: RELATÓRIO FINAL -->
             <section id="step4" class="step">
@@ -74,6 +95,20 @@
             </section>
         </main>
     </div>
+
     <script src="script.js"></script>
+
+    <!-- HTML DO MODAL DE TROCA (invisível por padrão) -->
+    <div id="swap-modal" class="modal-overlay">
+        <div class="modal-content">
+            <h3>Trocar Valor</h3>
+            <p>Selecione um valor da lista abaixo para substituir <b id="value-to-replace"></b>.</p>
+            <ul id="replacement-list" class="replacement-list">
+                <!-- Lista de valores substitutos será inserida aqui -->
+            </ul>
+            <button id="modal-close-btn" class="primary-btn modal-close-btn">Cancelar</button>
+        </div>
+    </div>
+
 </body>
 </html>

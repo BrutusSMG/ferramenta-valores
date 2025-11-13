@@ -1,0 +1,232 @@
+:root {
+    --primary-color: #0a2540;
+    --secondary-color: #556270;
+    --accent-color: #4ecdc4;
+    --background-color: #f4f4f9;
+    --text-color: #333;
+    --card-bg-color: #ffffff;
+    --border-color: #e0e0e0;
+}
+
+body {
+    font-family: 'Lexend', sans-serif;
+    background-color: var(--background-color);
+    color: var(--text-color);
+    margin: 0;
+    padding: 20px;
+    line-height: 1.6;
+}
+
+.container {
+    max-width: 800px;
+    margin: 0 auto;
+    background-color: var(--card-bg-color);
+    padding: 20px 40px;
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+}
+
+header {
+    text-align: center;
+    border-bottom: 1px solid var(--border-color);
+    padding-bottom: 20px;
+    margin-bottom: 30px;
+}
+
+header h1 {
+    color: var(--primary-color);
+    font-weight: 700;
+    margin: 0;
+}
+
+header .subtitle {
+    font-size: 1.1em;
+    color: var(--secondary-color);
+    margin-top: 5px;
+}
+
+.step {
+    display: none;
+}
+
+.step.active {
+    display: block;
+}
+
+.instructions {
+    background-color: #f0f5ff;
+    border-left: 4px solid var(--accent-color);
+    padding: 15px;
+    margin-bottom: 25px;
+    border-radius: 4px;
+}
+
+.value-card, .top-value-card {
+    background-color: #fff;
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    padding: 20px;
+    margin-bottom: 20px;
+    transition: box-shadow 0.2s;
+}
+
+.value-card:hover {
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+}
+
+.value-card h3 {
+    margin: 0 0 5px 0;
+    color: var(--primary-color);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.value-card p {
+    margin: 0 0 15px 0;
+    font-size: 0.95em;
+    color: #666;
+}
+
+.slider-group {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.slider-group label {
+    font-weight: 600;
+    width: 120px;
+}
+
+.slider-group input[type="range"] {
+    flex-grow: 1;
+    margin: 0 10px;
+}
+
+.slider-group span {
+    font-weight: 700;
+    color: var(--primary-color);
+    width: 20px;
+    text-align: center;
+}
+
+.custom-value-adder {
+    margin-top: 30px;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    border: 1px dashed var(--border-color);
+}
+
+.custom-value-adder h3 {
+    margin-top: 0;
+}
+
+.input-group {
+    display: flex;
+    gap: 10px;
+}
+
+.input-group input {
+    flex-grow: 1;
+    padding: 10px;
+    border: 1px solid var(--border-color);
+    border-radius: 5px;
+    font-family: 'Lexend', sans-serif;
+}
+
+.primary-btn, .custom-value-adder button {
+    display: block;
+    width: 100%;
+    padding: 15px;
+    font-size: 1.1em;
+    font-weight: 700;
+    color: #fff;
+    background-color: var(--secondary-color);
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+    margin-top: 20px;
+}
+
+.primary-btn:hover, .custom-value-adder button:hover {
+    background-color: var(--primary-color);
+}
+
+.primary-btn:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+}
+
+.custom-value-adder button {
+    width: auto;
+    margin-top: 0;
+    padding: 10px 20px;
+    font-size: 1em;
+}
+
+textarea {
+    width: 100%;
+    min-height: 80px;
+    padding: 10px;
+    border: 1px solid var(--border-color);
+    border-radius: 5px;
+    font-family: 'Lexend', sans-serif;
+    font-size: 1em;
+    margin-top: 5px;
+}
+
+.top-value-card h3 {
+    font-size: 1.5em;
+    color: var(--primary-color);
+    border-bottom: 2px solid var(--accent-color);
+    padding-bottom: 5px;
+    margin-bottom: 15px;
+}
+
+.top-value-card label {
+    font-weight: 700;
+    display: block;
+    margin-top: 10px;
+    margin-bottom: 5px;
+}
+
+#final-report .report-section {
+    margin-bottom: 25px;
+}
+
+#final-report h3 {
+    color: var(--primary-color);
+    border-bottom: 1px solid var(--border-color);
+    padding-bottom: 8px;
+}
+
+.delete-btn {
+    cursor: pointer;
+    border: none;
+    background: none;
+    font-size: 1.2em;
+    color: #999;
+}
+.delete-btn:hover {
+    color: #d9534f;
+}
+
+.capture-lead {
+    margin-top: 40px;
+    padding: 20px;
+    background-color: #f0f5ff;
+    border-radius: 8px;
+    text-align: center;
+}
+
+.capture-lead input {
+    display: block;
+    width: 80%;
+    margin: 10px auto;
+    padding: 12px;
+    border: 1px solid var(--border-color);
+    border-radius: 5px;
+}

@@ -1,5 +1,5 @@
 document.addEventListener('DOMContentLoaded', () => {
-    // Lista de valores pré-definidos
+    // A LISTA DE VALORES FOI MOVIDA PARA O TOPO PARA MELHOR ORGANIZAÇÃO
     const initialValues = [
         { name: "Altruísmo", description: "A abnegação em prol do bem maior da sociedade. Ajudar os outros sem esperar nada em troca." },
         { name: "Confiabilidade", description: "Ser uma pessoa em quem os outros podem confiar e contar." },
@@ -87,8 +87,6 @@ document.addEventListener('DOMContentLoaded', () => {
     };
 
     const checkAllValuesRated = () => {
-        // Para simplificar, vamos habilitar o botão assim que os valores forem renderizados.
-        // Uma verificação mais robusta poderia garantir que todos os sliders foram movidos.
         gotoStep2Btn.disabled = false;
     };
 
@@ -98,7 +96,7 @@ document.addEventListener('DOMContentLoaded', () => {
             valueSpan.textContent = e.target.value;
         }
     });
-    
+
     valuesListContainer.addEventListener('click', (e) => {
         if (e.target.classList.contains('delete-btn')) {
             const card = e.target.closest('.value-card');
@@ -115,13 +113,11 @@ document.addEventListener('DOMContentLoaded', () => {
             allValues.push({ name, description: '', custom: true });
             customValueNameInput.value = '';
             renderValues();
-            // Rola para o final para ver o novo valor
             valuesListContainer.lastChild.scrollIntoView({ behavior: 'smooth' });
         }
     });
 
     gotoStep2Btn.addEventListener('click', () => {
-        // 1. Coletar e calcular scores
         userResponses.values = allValues.map((value, index) => {
             const card = document.querySelector(`.value-card[data-index="${index}"]`);
             const importance = parseInt(card.querySelector('.importance-slider').value, 10);
@@ -134,63 +130,49 @@ document.addEventListener('DOMContentLoaded', () => {
             };
         });
 
-        // 2. Ordenar e pegar o Top 5
         userResponses.top5 = [...userResponses.values].sort((a, b) => b.total - a.total).slice(0, 5);
 
-        // 3. Renderizar Etapa 2
-        const top5MeaningContainer = document.getElementById('top5-meaning-list');
-        top5MeaningContainer.innerHTML = '';
-        userResponses.top5.forEach((value, index) => {
-            top5MeaningContainer.innerHTML += `
-                <div class="top-value-card">
-                    <h3>${index + 1}. ${value.name} <span class="score-display">(Score: ${value.total})</span></h3>
-                    <label for="meaning-${index}">O que '${value.name}' significa para você?</label>
-                    <textarea id="meaning-${index}" rows="3"></textarea>
-                </div>
-            `;
-        });
+        renderStep2();
 
-        // 4. Mudar de tela
         document.getElementById('step1').classList.remove('active');
         document.getElementById('step2').classList.add('active');
         window.scrollTo(0, 0);
     });
 
     document.getElementById('goto-step3-btn').addEventListener('click', () => {
-        // 1. Coletar significados
         userResponses.top5.forEach((value, index) => {
-            value.meaning = document.getElementById(`meaning-${index}`).value;
+            const textarea = document.getElementById(`meaning-${index}`);
+            if (textarea) {
+                value.meaning = textarea.value;
+            }
         });
 
-        // 2. Renderizar Etapa 3
         const top5TriggersContainer = document.getElementById('top5-triggers-list');
-        top5TriggersContainer.innerHTML = '';
-        userResponses.top5.forEach((value, index) => {
-            top5TriggersContainer.innerHTML += `
-                <div class="top-value-card">
-                    <h3>${index + 1}. ${value.name}</h3>
-                    <label for="motivator-${index}">Quais comportamentos/situações REFORÇAM este valor?</label>
-                    <textarea id="motivator-${index}" rows="3"></textarea>
-                    <label for="saboteur-${index}">Quais comportamentos/situações ENFRAQUECEM este valor?</label>
-                    <textarea id="saboteur-${index}" rows="3"></textarea>
-                </div>
-            `;
-        });
+	top5TriggersContainer.innerHTML = '';
+	userResponses.top5.forEach((value, index) => {
+    	   top5TriggersContainer.innerHTML += `
+        	<div class="top-value-card">
+            	    <h3>${index + 1}. ${value.name}</h3>
+            	    <label for="motivator-${index}"><b>Motivador:</b> Como ter o valor '${value.name}' te ajuda a avançar rumo à realização do seu objetivo?</label>
+            	    <textarea id="motivator-${index}" rows="3" placeholder="Ex: Ter 'Disciplina' me ajuda a estudar toda semana para a prova..."></textarea>
+            
+            	    <label for="saboteur-${index}"><b>Sabotador:</b> Como ter o valor '${value.name}' te atrapalha a realizar seu objetivo?</label>
+            	    <textarea id="saboteur-${index}" rows="3" placeholder="Ex: Ter 'Perfeccionismo' me atrapalha pois nunca entrego o projeto..."></textarea>
+        	</div>
+    	    `;
+	});
 
-        // 3. Mudar de tela
         document.getElementById('step2').classList.remove('active');
         document.getElementById('step3').classList.add('active');
         window.scrollTo(0, 0);
     });
 
     document.getElementById('finish-btn').addEventListener('click', () => {
-        // 1. Coletar motivadores e sabotadores
         userResponses.top5.forEach((value, index) => {
             value.motivator = document.getElementById(`motivator-${index}`).value;
             value.saboteur = document.getElementById(`saboteur-${index}`).value;
         });
 
-        // 2. Renderizar Relatório Final
         const finalReportContainer = document.getElementById('final-report');
         finalReportContainer.innerHTML = '<h2>Sua Hierarquia de Valores</h2>';
         userResponses.top5.forEach((value, index) => {
@@ -204,26 +186,139 @@ document.addEventListener('DOMContentLoaded', () => {
             `;
         });
         
-        // 3. Mudar de tela
         document.getElementById('step3').classList.remove('active');
         document.getElementById('step4').classList.add('active');
         window.scrollTo(0, 0);
     });
-    
-    document.getElementById('send-report-btn').addEventListener('click', () => {
-        // Lógica para enviar o relatório.
-        // Por enquanto, apenas um alerta.
-        // Aqui você integraria com sua automação (ex: enviar dados para uma Planilha Google).
+
+    document.getElementById('send-report-btn').addEventListener('click', (e) => {
+        const sendButton = e.target;
         const name = document.getElementById('user-name').value;
         const email = document.getElementById('user-email').value;
-        if(name && email) {
-            alert(`Relatório para ${name} (${email}) seria enviado aqui!`);
-            // Você pode usar JSON.stringify(userResponses) para obter todos os dados.
-            console.log(JSON.stringify(userResponses, null, 2));
-        } else {
-            alert('Por favor, preencha seu nome e e-mail.');
+
+        if (!name || !email) {
+	    alert('Por favor, preencha seu nome e e-mail.');
+            return;
+    	}
+
+    	// Adiciona nome e email ao objeto de respostas
+    	userResponses.name = name;
+    	userResponses.email = email;
+
+    	// Desabilita o botão e mostra um feedback
+    	sendButton.disabled = true;
+    	sendButton.textContent = 'Enviando...';
+
+    	const webAppUrl = 'https://script.google.com/macros/s/AKfycbz-ydBvB19aEYJGF2Xsf_bDQrA86_M0mkRLbX_54sEZTfGs2-7ngc9_7syeYT85zTHe/exec';
+
+    	fetch(webAppUrl, {
+            method: 'POST',
+            mode: 'no-cors', // Importante para evitar erros de CORS com Apps Script
+            cache: 'no-cache',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(userResponses) // Envia todos os dados coletados
+    	})
+    	.then(() => {
+            // Mesmo com 'no-cors', a requisição é feita. Não podemos ler a resposta, mas podemos assumir sucesso.
+            alert('Relatório enviado com sucesso! Verifique sua caixa de e-mail.');
+            sendButton.textContent = 'Enviado!';
+    	})
+    	    .catch(error => {
+            console.error('Erro ao enviar dados:', error);
+            alert('Ocorreu um erro ao enviar seu relatório. Por favor, tente novamente.');
+            sendButton.disabled = false;
+            sendButton.textContent = 'Enviar Relatório por E-mail';
+    	});
+    });
+
+
+    // --- LÓGICA DO MODAL DE TROCA ---
+
+    const swapModal = document.getElementById('swap-modal');
+    const top5MeaningContainer = document.getElementById('top5-meaning-list');
+    const valueToReplaceEl = document.getElementById('value-to-replace');
+    const replacementList = document.getElementById('replacement-list');
+    const modalCloseBtn = document.getElementById('modal-close-btn');
+
+    let currentIndexToSwap = -1;
+
+    top5MeaningContainer.addEventListener('click', (e) => {
+        if (e.target.classList.contains('swap-btn')) {
+            currentIndexToSwap = parseInt(e.target.dataset.index, 10);
+            const valueToSwap = userResponses.top5[currentIndexToSwap];
+            
+            valueToReplaceEl.textContent = `"${valueToSwap.name}"`;
+
+            const otherValues = userResponses.values
+                .filter(v => !userResponses.top5.some(topV => topV.name === v.name))
+                .sort((a, b) => b.total - a.total);
+
+            replacementList.innerHTML = '';
+            otherValues.forEach(value => {
+                const li = document.createElement('li');
+                li.innerHTML = `<span>${value.name}</span> <b>Score: ${value.total}</b>`;
+                li.dataset.valueName = value.name;
+                replacementList.appendChild(li);
+            });
+
+            swapModal.style.display = 'flex';
         }
     });
+
+    replacementList.addEventListener('click', (e) => {
+        const li = e.target.closest('li');
+        if (li) {
+            const newValueName = li.dataset.valueName;
+            const newValue = userResponses.values.find(v => v.name === newValueName);
+
+            if (newValue) {
+                userResponses.top5[currentIndexToSwap] = newValue;
+                renderStep2();
+                closeModal();
+            }
+        }
+    });
+
+    const closeModal = () => {
+        swapModal.style.display = 'none';
+    };
+
+    modalCloseBtn.addEventListener('click', closeModal);
+    swapModal.addEventListener('click', (e) => {
+        if (e.target === swapModal) {
+            closeModal();
+        }
+    });
+
+    function renderStep2() {
+        const existingMeanings = {};
+        if (userResponses.top5) {
+            userResponses.top5.forEach((value, index) => {
+                const textarea = document.getElementById(`meaning-${index}`);
+                if (textarea) {
+                    existingMeanings[value.name] = textarea.value;
+                }
+            });
+        }
+
+        top5MeaningContainer.innerHTML = '';
+        userResponses.top5.forEach((value, index) => {
+            const cardHTML = `
+                <div class="top-value-card" data-value-name="${value.name}">
+                    <h3>
+                        ${index + 1}. ${value.name} 
+                        <span class="score-display">(Score: ${value.total})</span>
+                    </h3>
+                    <label for="meaning-${index}">O que '${value.name}' significa para você?</label>
+                    <textarea id="meaning-${index}" rows="3">${existingMeanings[value.name] || ''}</textarea>
+                    <button class="swap-btn" data-index="${index}">Trocar este Valor</button>
+                </div>
+            `;
+            top5MeaningContainer.innerHTML += cardHTML;
+        });
+    }
 
     // Iniciar a aplicação
     renderValues();

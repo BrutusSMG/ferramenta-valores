@@ -71,12 +71,12 @@ document.addEventListener('DOMContentLoaded', () => {
                 </h3>
                 <p>${value.description || 'Valor pessoal adicionado por você.'}</p>
                 <div class="slider-group">
-                    <label>Importância (I)</label>
+                    <label>I</label>
                     <input type="range" min="0" max="10" value="5" class="importance-slider">
                     <span class="importance-value">5</span>
                 </div>
                 <div class="slider-group">
-                    <label>Sentimento (S)</label>
+                    <label>S</label>
                     <input type="range" min="0" max="10" value="5" class="sentiment-slider">
                     <span class="sentiment-value">5</span>
                 </div>

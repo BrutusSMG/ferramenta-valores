@@ -143,7 +143,7 @@ document.addEventListener('DOMContentLoaded', () => {
         userResponses.top5.forEach((value, index) => {
             top5MeaningContainer.innerHTML += `
                 <div class="top-value-card">
-                    <h3>${index + 1}. ${value.name}</h3>
+                    <h3>${index + 1}. ${value.name} <span class="score-display">(Score: ${value.total})</span></h3>
                     <label for="meaning-${index}">O que '${value.name}' significa para você?</label>
                     <textarea id="meaning-${index}" rows="3"></textarea>
                 </div>

@@ -192,47 +192,50 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     document.getElementById('send-report-btn').addEventListener('click', (e) => {
-        const sendButton = e.target;
-        const name = document.getElementById('user-name').value;
-        const email = document.getElementById('user-email').value;
-
-        if (!name || !email) {
-	    alert('Por favor, preencha seu nome e e-mail.');
-            return;
-    	}
-
-    	// Adiciona nome e email ao objeto de respostas
-    	userResponses.name = name;
-    	userResponses.email = email;
-
-    	// Desabilita o botão e mostra um feedback
-    	sendButton.disabled = true;
-    	sendButton.textContent = 'Enviando...';
-
-    	const webAppUrl = 'https://script.google.com/macros/s/AKfycbz-ydBvB19aEYJGF2Xsf_bDQrA86_M0mkRLbX_54sEZTfGs2-7ngc9_7syeYT85zTHe/exec';
-
-    	fetch(webAppUrl, {
-            method: 'POST',
-            mode: 'no-cors', // Importante para evitar erros de CORS com Apps Script
-            cache: 'no-cache',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(userResponses) // Envia todos os dados coletados
-    	})
-    	.then(() => {
-            // Mesmo com 'no-cors', a requisição é feita. Não podemos ler a resposta, mas podemos assumir sucesso.
-            alert('Relatório enviado com sucesso! Verifique sua caixa de e-mail.');
-            sendButton.textContent = 'Enviado!';
-    	})
-    	    .catch(error => {
-            console.error('Erro ao enviar dados:', error);
-            alert('Ocorreu um erro ao enviar seu relatório. Por favor, tente novamente.');
-            sendButton.disabled = false;
-            sendButton.textContent = 'Enviar Relatório por E-mail';
-    	});
-    });
-
+	    const sendButton = e.target;
+	    const name = document.getElementById('user-name').value;
+	    const email = document.getElementById('user-email').value;
+	
+	    if (!name || !email) {
+	        alert('Por favor, preencha seu nome e e-mail.');
+	        return;
+	    }
+	
+	    userResponses.name = name;
+	    userResponses.email = email;
+	
+	    sendButton.disabled = true;
+	    sendButton.textContent = 'Enviando...';
+	
+	    const webAppUrl = 'COLE_A_URL_DO_SEU_APP_DA_WEB_AQUI'; // Garanta que esta URL está correta
+	
+	    fetch(webAppUrl, {
+	        method: 'POST',
+	        body: JSON.stringify(userResponses),
+	        // A linha 'mode: no-cors' foi removida.
+	        // O cabeçalho foi ajustado para o que o Apps Script espera.
+	        headers: {
+	            'Content-Type': 'text/plain;charset=utf-8',
+	        },
+	    })
+	    .then(response => response.json())
+	    .then(data => {
+	        if (data.status === 'success') {
+	            alert('Relatório enviado com sucesso! Verifique sua caixa de e-mail.');
+	            sendButton.textContent = 'Enviado!';
+	        } else {
+	            // Se o servidor responder com um erro, ele será mostrado aqui
+	            throw new Error(data.message || 'O servidor retornou um erro.');
+	        }
+	    })
+	    .catch(error => {
+	        // Se houver um erro de rede ou qualquer outra falha, ele será capturado aqui
+	        console.error('Erro detalhado ao enviar dados:', error);
+	        alert('Ocorreu um erro ao enviar seu relatório. Verifique o console para mais detalhes.');
+	        sendButton.disabled = false;
+	        sendButton.textContent = 'Enviar Relatório por E-mail';
+	    });
+	});
 
     // --- LÓGICA DO MODAL DE TROCA ---
 

@@ -95,8 +95,10 @@ header .subtitle {
 }
 
 .slider-group label {
-    font-weight: 600;
-    width: 120px;
+    font-weight: 700;
+    font-size: 1.2em;
+    width: 30px;
+    text-align: center
 }
 
 .slider-group input[type="range"] {

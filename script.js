@@ -42,6 +42,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const valuesListContainer = document.getElementById('values-list');
     const gotoStep2Btn = document.getElementById('goto-step2-btn');
+    const introCard = document.getElementById('intro-card');
 
     // ------------------------------------------------------------------
     // --- 2. FUNÇÕES DE RENDERIZAÇÃO
@@ -177,6 +178,9 @@ document.addEventListener('DOMContentLoaded', () => {
         renderStep2();
         document.getElementById('step1').classList.remove('active');
         document.getElementById('step2').classList.add('active');
+
+	introCard.style.display = 'none';
+
         window.scrollTo(0, 0);
     });
 

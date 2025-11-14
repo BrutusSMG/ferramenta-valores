@@ -1,324 +1,416 @@
-document.addEventListener('DOMContentLoaded', () => {
-    // A LISTA DE VALORES FOI MOVIDA PARA O TOPO PARA MELHOR ORGANIZAÇÃO
-    const initialValues = [
-        { name: "Altruísmo", description: "A abnegação em prol do bem maior da sociedade. Ajudar os outros sem esperar nada em troca." },
-        { name: "Confiabilidade", description: "Ser uma pessoa em quem os outros podem confiar e contar." },
-        { name: "Integridade", description: "Fazer o que é certo, mesmo quando ninguém está olhando. Ser honesto e consistente." },
-        { name: "Generosidade", description: "Ser generoso com seu tempo, conhecimento e bondade, não apenas com dinheiro." },
-        { name: "Coragem", description: "Enfrentar seus medos e agir apesar deles para defender o que é certo." },
-        { name: "Gratidão", description: "Apreciar ativamente o que você tem na vida, reconhecendo o positivo." },
-        { name: "Bem-estar", description: "Cuidar da sua saúde física, mental e emocional como uma prioridade." },
-        { name: "Educação", description: "A busca contínua por conhecimento e aprendizado." },
-        { name: "Criatividade", description: "Usar a imaginação para criar, inovar e resolver problemas de formas novas." },
-        { name: "Família", description: "Valorizar e nutrir os laços familiares e as relações próximas." },
-        { name: "Autoestima", description: "Respeitar a si mesmo, conhecer seu valor e estabelecer limites saudáveis." },
-        { name: "Adaptabilidade", description: "Ajustar-se a mudanças e desafios com flexibilidade e resiliência." },
-        { name: "Autoaperfeiçoamento", description: "A busca constante por ser uma versão melhor de si mesmo." },
-        { name: "Singularidade", description: "Prezar pela sua individualidade e não ter medo de ser diferente." },
-        { name: "Assertividade", description: "Comunicar suas necessidades e opiniões de forma confiante e respeitosa." },
-        { name: "Oferecer apoio", description: "Estar presente para os outros em momentos difíceis, oferecendo um ombro amigo." },
-        { name: "Sustentabilidade", description: "Preocupar-se com o meio ambiente e o impacto de suas ações no planeta." },
-        { name: "Mente aberta", description: "Estar receptivo a novas ideias, perspectivas e culturas." },
-        { name: "Crescimento pessoal", description: "Evoluir em áreas emocionais, intelectuais e espirituais." },
-        { name: "Flexibilidade", description: "Alternar entre diferentes formas de pensar e se adaptar a novas tarefas." },
-        { name: "Frugalidade", description: "Ser cuidadoso e econômico com recursos, especialmente dinheiro." },
-        { name: "Independência", description: "Valorizar a autossuficiência e a capacidade de fazer as coisas por si mesmo." },
-        { name: "Autocompaixão", description: "Tratar a si mesmo com a mesma gentileza que trataria um amigo." },
-        { name: "Honestidade", description: "Ser verdadeiro em palavras e ações, mesmo quando é difícil." },
-        { name: "Responsabilidade", description: "Assumir o controle da sua situação e ser dono de seus erros e acertos." },
-        { name: "Autenticidade", description: "Ser fiel a si mesmo, sem fingir ser algo que não é." },
-        { name: "Lealdade", description: "Apoiar os outros nos bons e maus momentos, sendo fiel a seus compromissos." },
-        { name: "Comunidade", description: "Sentir-se parte de um grupo e contribuir para um senso de pertencimento." },
-        { name: "Autorreflexão", description: "Apreciar a introspecção e o pensamento profundo para se autoconhecer." },
-        { name: "Ambição", description: "A motivação interna para perseguir sonhos e alcançar seu potencial." },
-        { name: "Equilíbrio", description: "Encontrar harmonia entre trabalho, vida pessoal e outras áreas da vida." },
-        { name: "Colaboração", description: "Trabalhar bem em equipe para criar algo maior do que a soma das partes." },
-        { name: "Conexão", description: "Criar laços verdadeiros e significativos com outras pessoas." },
-        { name: "Curiosidade", description: "Ter o desejo de explorar, questionar e aprender coisas novas." },
-        { name: "Disciplina", description: "Manter-se firme em seus compromissos e fazer o que precisa ser feito." },
-        { name: "Empoderamento", description: "Ajudar os outros (e a si mesmo) a reconhecerem sua própria força." },
-        { name: "Equidade", description: "Garantir que todos recebam o que precisam para ter sucesso." },
-        { name: "Perdão", description: "Deixar para trás mágoas e ressentimentos para poder seguir em frente." },
-        { name: "Trabalho árduo", description: "Dedicar-se e dar o seu melhor para alcançar seus objetivos." },
-        { name: "Humildade", description: "Manter os pés no chão e ser autêntico, independentemente do sucesso." },
-        { name: "Inovação", description: "Pensar fora da caixa e não ter medo de criar ou tentar coisas novas." },
-        { name: "Alegria", description: "Encontrar e cultivar a felicidade nas pequenas e grandes coisas da vida." },
-        { name: "Justiça", description: "Defender o que é certo e lutar por um tratamento justo para todos." },
-        { name: "Otimismo", description: "Manter uma perspectiva positiva e acreditar em boas possibilidades." },
-        { name: "Paciência", description: "Manter a calma e confiar no processo, mesmo quando as coisas demoram." },
-        { name: "Perseverança", description: "Continuar avançando com determinação, mesmo diante de obstáculos." },
-        { name: "Propósito", description: "Viver com intenção, alinhado com o que realmente importa para você." },
-        { name: "Respeito", description: "Tratar os outros com cuidado e consideração, valorizando suas singularidades." }
-    ];
+/* ================================================================== */
+/* === ARQUIVO CSS DEFINITIVO, UNIFICADO E SEM CONFLITOS          === */
+/* ================================================================== */
 
-    let allValues = [...initialValues];
-    let userResponses = {};
+:root {
+    --primary-color: #0a2540;
+    --secondary-color: #556270;
+    --accent-color: #4ecdc4;
+    --background-color: #f4f4f9;
+    --text-color: #333;
+    --card-bg-color: #ffffff;
+    --border-color: #e0e0e0;
+}
 
-    const valuesListContainer = document.getElementById('values-list');
-    const gotoStep2Btn = document.getElementById('goto-step2-btn');
+body {
+    font-family: 'Lexend', sans-serif;
+    background-color: var(--background-color);
+    color: var(--text-color);
+    margin: 0;
+    padding: 20px;
+    line-height: 1.6;
+}
 
-    const renderValues = () => {
-        valuesListContainer.innerHTML = '';
-        allValues.forEach((value, index) => {
-            const card = document.createElement('div');
-            card.className = 'value-card';
-            card.dataset.index = index;
+.container {
+    max-width: 800px;
+    margin: 0 auto;
+    background-color: var(--card-bg-color);
+    padding: 20px 40px;
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+    position: relative;
+}
 
-            card.innerHTML = `
-                <h3>
-                    ${value.name}
-                    ${value.custom ? '<button class="delete-btn" title="Remover valor">🗑️</button>' : ''}
-                </h3>
-                <p>${value.description || 'Valor pessoal adicionado por você.'}</p>
-                <div class="slider-group">
-                    <label>I</label>
-                    <input type="range" min="0" max="10" value="5" class="importance-slider">
-                    <span class="importance-value">5</span>
-                </div>
-                <div class="slider-group">
-                    <label>S</label>
-                    <input type="range" min="0" max="10" value="5" class="sentiment-slider">
-                    <span class="sentiment-value">5</span>
-                </div>
-            `;
-            valuesListContainer.appendChild(card);
-        });
-        checkAllValuesRated();
-    };
+header {
+    text-align: center;
+    border-bottom: 1px solid var(--border-color);
+    padding-bottom: 20px;
+    margin-bottom: 30px;
+}
 
-    const checkAllValuesRated = () => {
-        gotoStep2Btn.disabled = false;
-    };
+header h1 {
+    color: var(--primary-color);
+    font-weight: 700;
+    margin: 0;
+}
 
-    valuesListContainer.addEventListener('input', (e) => {
-        if (e.target.type === 'range') {
-            const valueSpan = e.target.nextElementSibling;
-            valueSpan.textContent = e.target.value;
-        }
-    });
+.step {
+    display: none;
+}
 
-    valuesListContainer.addEventListener('click', (e) => {
-        if (e.target.classList.contains('delete-btn')) {
-            const card = e.target.closest('.value-card');
-            const index = parseInt(card.dataset.index, 10);
-            allValues.splice(index, 1);
-            renderValues();
-        }
-    });
+.step.active {
+    display: block;
+}
 
-    document.getElementById('add-custom-value-btn').addEventListener('click', () => {
-        const customValueNameInput = document.getElementById('custom-value-name');
-        const name = customValueNameInput.value.trim();
-        if (name) {
-            allValues.push({ name, description: '', custom: true });
-            customValueNameInput.value = '';
-            renderValues();
-            valuesListContainer.lastChild.scrollIntoView({ behavior: 'smooth' });
-        }
-    });
+.instructions-box {
+    background-color: #f0f5ff;
+    border-left: 4px solid var(--accent-color);
+    padding: 15px;
+    margin-bottom: 25px;
+    border-radius: 4px;
+}
 
-    gotoStep2Btn.addEventListener('click', () => {
-        userResponses.values = allValues.map((value, index) => {
-            const card = document.querySelector(`.value-card[data-index="${index}"]`);
-            const importance = parseInt(card.querySelector('.importance-slider').value, 10);
-            const sentiment = parseInt(card.querySelector('.sentiment-slider').value, 10);
-            return {
-                name: value.name,
-                importance,
-                sentiment,
-                total: importance + sentiment
-            };
-        });
+/* --- ESTILOS COMPACTOS PARA ETAPA 1 --- */
+.value-card {
+    background-color: #fff;
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    padding: 12px 15px;
+    margin-bottom: 10px;
+    transition: box-shadow 0.2s;
+}
+.value-card:hover {
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+}
+.value-card h3 {
+    font-size: 16px;
+    margin: 0 0 6px 0;
+    color: var(--primary-color);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.value-card p {
+    font-size: 14px;
+    line-height: 1.4;
+    margin: 0 0 12px 0;
+    color: #666;
+}
+.slider-group {
+    display: flex;
+    align-items: center;
+    margin-top: 8px;
+}
+.slider-group label {
+    font-size: 14px;
+    font-weight: 600;
+    min-width: 20px;
+    text-align: center;
+}
+.slider-group input[type="range"] {
+    flex-grow: 1;
+    margin: 0 10px;
+}
+.slider-group span {
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--primary-color);
+    min-width: 25px;
+    text-align: center;
+}
+.delete-btn {
+    cursor: pointer;
+    border: none;
+    background: none;
+    font-size: 1.1em;
+    color: #999;
+    padding: 0 5px;
+}
+.delete-btn:hover {
+    color: #d9534f;
+}
 
-        userResponses.top5 = [...userResponses.values].sort((a, b) => b.total - a.total).slice(0, 5);
+/* --- LAYOUT PARA ADICIONADOR DE VALOR --- */
+.custom-value-adder {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-top: 30px;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+}
+.custom-value-adder h3 {
+    margin: 0;
+    font-size: 16px;
+    flex-shrink: 0;
+}
+.custom-value-adder input[type="text"] {
+    flex-grow: 1;
+    width: auto;
+    padding: 10px;
+    border: 1px solid var(--border-color);
+    border-radius: 5px;
+    font-family: 'Lexend', sans-serif;
+}
+.custom-value-adder .secondary-btn {
+    flex-shrink: 0;
+    width: auto;
+    padding: 10px 20px;
+    font-size: 1em;
+    margin-top: 0;
+}
 
-        renderStep2();
+/* --- BOTÕES GERAIS --- */
+.primary-btn, .secondary-btn {
+    display: block;
+    width: 100%;
+    padding: 15px;
+    font-size: 1.1em;
+    font-weight: 700;
+    color: #fff;
+    background-color: var(--secondary-color);
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+    margin-top: 20px;
+}
+.primary-btn:hover, .secondary-btn:hover {
+    background-color: var(--primary-color);
+}
+.primary-btn:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+}
 
-        document.getElementById('step1').classList.remove('active');
-        document.getElementById('step2').classList.add('active');
-        window.scrollTo(0, 0);
-    });
+/* --- ESTILOS COMPACTOS PARA ETAPAS 2 E 3 --- */
+.top-value-card {
+    background-color: #fff;
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    padding: 15px;
+    margin-bottom: 15px;
+}
+#step2 .top-value-card h3, #step3 .top-value-card h3 {
+    font-size: 18px;
+    margin-bottom: 10px;
+    color: var(--primary-color);
+    border-bottom: 2px solid var(--accent-color);
+    padding-bottom: 5px;
+}
+#step2 .top-value-card label, #step3 .top-value-card label {
+    font-size: 15px;
+    font-weight: 700;
+    display: block;
+    margin-top: 10px;
+    margin-bottom: 5px;
+}
+#step2 textarea, #step3 textarea {
+    width: 100%;
+    min-height: 80px;
+    padding: 10px;
+    border: 1px solid var(--border-color);
+    border-radius: 5px;
+    font-family: 'Lexend', sans-serif;
+    font-size: 15px;
+    margin-bottom: 12px;
+    box-sizing: border-box; /* Impede que a caixa de texto "vaze" */
+}
+.score-display {
+    font-size: 15px;
+    font-weight: 400;
+    color: #777;
+    margin-left: 8px;
+}
+.swap-btn {
+    background-color: #f0f0f0;
+    color: #555;
+    border: 1px solid #ccc;
+    padding: 6px 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 13px;
+    margin-top: 5px;
+    transition: background-color 0.2s, color 0.2s;
+}
+.swap-btn:hover {
+    background-color: #e0e0e0;
+}
 
-    document.getElementById('goto-step3-btn').addEventListener('click', () => {
-        userResponses.top5.forEach((value, index) => {
-            const textarea = document.getElementById(`meaning-${index}`);
-            if (textarea) {
-                value.meaning = textarea.value;
-            }
-        });
+/* --- ESTILOS PARA MODAL DE TROCA --- */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.6);
+    justify-content: center;
+    align-items: center;
+}
+.modal-content {
+    background-color: #fff;
+    padding: 30px;
+    border-radius: 10px;
+    width: 90%;
+    max-width: 500px;
+    max-height: 80vh;
+    overflow-y: auto;
+}
+.modal-content h3 {
+    margin-top: 0;
+}
+.close-btn {
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+}
+.replacement-list {
+    padding: 0;
+}
+.replacement-list li {
+    list-style: none;
+    padding: 12px;
+    margin: 5px 0;
+    border: 1px solid #eee;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+    display: flex;
+    justify-content: space-between;
+}
+.replacement-list li:hover {
+    background-color: #f5f5f5;
+}
 
-        const top5TriggersContainer = document.getElementById('top5-triggers-list');
-        top5TriggersContainer.innerHTML = '';
-        userResponses.top5.forEach((value, index) => {
-            top5TriggersContainer.innerHTML += `
-                <div class="top-value-card">
-                    <h3>${index + 1}. ${value.name}</h3>
-                    <label for="motivator-${index}"><b>Motivador:</b> Como ter o valor '${value.name}' te ajuda a avançar rumo à realização do seu objetivo?</label>
-                    <textarea id="motivator-${index}" rows="3" placeholder="Ex: Ter 'Disciplina' me ajuda a estudar toda semana para a prova..."></textarea>
-                    
-                    <label for="saboteur-${index}"><b>Sabotador:</b> Como ter o valor '${value.name}' te atrapalha a realizar seu objetivo?</label>
-                    <textarea id="saboteur-${index}" rows="3" placeholder="Ex: Ter 'Perfeccionismo' me atrapalha pois nunca entrego o projeto..."></textarea>
-                </div>
-            `;
-        });
+/* --- ESTILOS PARA ETAPA 4 (PROVA DE FOGO) --- */
+#confrontation-area { margin: 30px 0; }
+.confrontation-card { display: flex; align-items: center; justify-content: center; gap: 20px; }
+.confrontation-card span { font-weight: 700; color: #888; }
+.choice-btn {
+    background-color: #fff;
+    border: 2px solid #ddd;
+    border-radius: 8px;
+    padding: 15px;
+    font-size: 16px;
+    font-family: 'Lexend', sans-serif;
+    cursor: pointer;
+    width: 45%;
+    min-height: 120px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    transition: all 0.2s ease;
+    flex-direction: column;
+}
+.choice-title {
+    font-weight: 700;
+    font-size: 18px;
+    color: var(--primary-color);
+    margin-bottom: 10px; /* Espaço entre o título e o cenário */
+}
+.choice-scenario {
+    font-size: 15px;
+    line-height: 1.5;
+    color: #555;
+}
+.choice-btn:hover {
+    border-color: #0a2540;
+    background-color: #f7f9fc;
+    transform: translateY(-3px);
+    box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+}
+#progress-bar-container { width: 100%; background-color: #e0e0e0; border-radius: 5px; margin-top: 20px; }
+#progress-bar { width: 0%; height: 10px; background-color: #0a2540; border-radius: 5px; transition: width 0.4s ease; }
+#progress-text { text-align: center; margin-top: 10px; font-size: 14px; color: #555; }
 
-        document.getElementById('step2').classList.remove('active');
-        document.getElementById('step3').classList.add('active');
-        window.scrollTo(0, 0);
-    });
+/* --- ESTILOS PARA ETAPA 5 (RELATÓRIO FINAL) --- */
+.email-form { margin-top: 40px; padding: 20px; background-color: #f0f5ff; border-radius: 8px; text-align: center; }
+.email-form input { display: block; width: 80%; margin: 10px auto; padding: 12px; border: 1px solid var(--border-color); border-radius: 5px; }
+#final-report .report-section { margin-bottom: 25px; }
+#final-report h3 { color: var(--primary-color); border-bottom: 1px solid var(--border-color); padding-bottom: 8px; }
 
-    document.getElementById('finish-btn').addEventListener('click', () => {
-        userResponses.top5.forEach((value, index) => {
-            value.motivator = document.getElementById(`motivator-${index}`).value;
-            value.saboteur = document.getElementById(`saboteur-${index}`).value;
-        });
+/* --- ESTILOS PARA CAIXA DE EXEMPLO (ETAPA 3) --- */
+.example-box {
+    background-color: #fdf8e1;
+    border: 1px solid #fceec4;
+    border-left: 4px solid #f9d777;
+    padding: 15px 20px;
+    margin-bottom: 30px;
+    border-radius: 4px;
+}
+.example-box p { margin-top: 5px; margin-bottom: 10px; }
+.example-box ul { padding-left: 20px; margin: 0; }
+.example-box li { margin-bottom: 10px; }
 
-        const finalReportContainer = document.getElementById('final-report');
-        finalReportContainer.innerHTML = '<h2>Sua Hierarquia de Valores</h2>';
-        userResponses.top5.forEach((value, index) => {
-            finalReportContainer.innerHTML += `
-                <div class="report-section">
-                    <h3>${index + 1}. ${value.name} (Score Total: ${value.total})</h3>
-                    <p><strong>O que significa para você:</strong> ${value.meaning || 'Não preenchido.'}</p>
-                    <p><strong>Como ele te ajuda a alcançar seus objetivos:</strong> ${value.motivator || 'Não preenchido.'}</p>
-                    <p><strong>Como ele te atrapalha a alcançar seus objetivos:</strong> ${value.saboteur || 'Não preenchido.'}</p>
-                </div>
-            `;
-        });
-        
-        document.getElementById('step3').classList.remove('active');
-        document.getElementById('step4').classList.add('active');
-        window.scrollTo(0, 0);
-    });
+/* ================================================================== */
+/* === ESTILO FINAL PARA O BOTÃO DE AJUDA FLUTUANTE (VERSÃO JS) === */
+/* ================================================================== */
 
-    // ESTA É A VERSÃO DO 'FETCH' QUE CAUSOU O FALSO POSITIVO
-    document.getElementById('send-report-btn').addEventListener('click', (e) => {
-        const sendButton = e.target;
-        const name = document.getElementById('user-name').value;
-        const email = document.getElementById('user-email').value;
+/* 1. O Botão Flutuante (começa invisível) */
+#floating-help-btn {
+    position: fixed;
+    bottom: 25px;
+    right: 25px;
+    z-index: 1000;
+    background-color: var(--primary-color);
+    color: #fff;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    font-size: 24px;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+    cursor: help;
+    
+    /* Lógica de visibilidade via JS */
+    opacity: 0;
+    transform: scale(0.5);
+    visibility: hidden;
+    transition: all 0.3s ease;
+}
 
-        if (!name || !email) {
-            alert('Por favor, preencha seu nome e e-mail.');
-            return;
-        }
+/* 2. Classe que o JavaScript vai adicionar para MOSTRAR o botão */
+#floating-help-btn.visible {
+    opacity: 1;
+    transform: scale(1);
+    visibility: visible;
+}
 
-        userResponses.name = name;
-        userResponses.email = email;
-
-        sendButton.disabled = true;
-        sendButton.textContent = 'Enviando...';
-
-        const webAppUrl = 'https://script.google.com/macros/s/AKfycbz-ydBvB19aEYJGF2Xsf_bDQrA86_M0mkRLbX_54sEZTfGs2-7ngc9_7syeYT85zTHe/exec';
-
-        fetch(webAppUrl, {
-            method: 'POST',
-            mode: 'no-cors', // Esta linha é a principal causa do comportamento
-            cache: 'no-cache',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(userResponses)
-        })
-        .then(() => {
-            // Com 'no-cors', este bloco é executado mesmo que a requisição falhe no destino
-            alert('Relatório enviado com sucesso! Verifique sua caixa de e-mail.');
-            sendButton.textContent = 'Enviado!';
-        })
-        .catch(error => {
-            // Este bloco raramente é acionado com 'no-cors', a menos que haja um erro de rede local
-            console.error('Erro ao enviar dados:', error);
-            alert('Ocorreu um erro ao enviar seu relatório. Por favor, tente novamente.');
-            sendButton.disabled = false;
-            sendButton.textContent = 'Enviar Relatório por E-mail';
-        });
-    });
-
-    // --- LÓGICA DO MODAL DE TROCA ---
-
-    const swapModal = document.getElementById('swap-modal');
-    const top5MeaningContainer = document.getElementById('top5-meaning-list');
-    const valueToReplaceEl = document.getElementById('value-to-replace');
-    const replacementList = document.getElementById('replacement-list');
-    const modalCloseBtn = document.getElementById('modal-close-btn');
-
-    let currentIndexToSwap = -1;
-
-    top5MeaningContainer.addEventListener('click', (e) => {
-        if (e.target.classList.contains('swap-btn')) {
-            currentIndexToSwap = parseInt(e.target.dataset.index, 10);
-            const valueToSwap = userResponses.top5[currentIndexToSwap];
-            
-            valueToReplaceEl.textContent = `"${valueToSwap.name}"`;
-
-            const otherValues = userResponses.values
-                .filter(v => !userResponses.top5.some(topV => topV.name === v.name))
-                .sort((a, b) => b.total - a.total);
-
-            replacementList.innerHTML = '';
-            otherValues.forEach(value => {
-                const li = document.createElement('li');
-                li.innerHTML = `<span>${value.name}</span> <b>Score: ${value.total}</b>`;
-                li.dataset.valueName = value.name;
-                replacementList.appendChild(li);
-            });
-
-            swapModal.style.display = 'flex';
-        }
-    });
-
-    replacementList.addEventListener('click', (e) => {
-        const li = e.target.closest('li');
-        if (li) {
-            const newValueName = li.dataset.valueName;
-            const newValue = userResponses.values.find(v => v.name === newValueName);
-
-            if (newValue) {
-                userResponses.top5[currentIndexToSwap] = newValue;
-                renderStep2();
-                closeModal();
-            }
-        }
-    });
-
-    const closeModal = () => {
-        swapModal.style.display = 'none';
-    };
-
-    modalCloseBtn.addEventListener('click', closeModal);
-    swapModal.addEventListener('click', (e) => {
-        if (e.target === swapModal) {
-            closeModal();
-        }
-    });
-
-    function renderStep2() {
-        const existingMeanings = {};
-        if (userResponses.top5) {
-            userResponses.top5.forEach((value, index) => {
-                const textarea = document.getElementById(`meaning-${index}`);
-                if (textarea) {
-                    existingMeanings[value.name] = textarea.value;
-                }
-            });
-        }
-
-        top5MeaningContainer.innerHTML = '';
-        userResponses.top5.forEach((value, index) => {
-            const cardHTML = `
-                <div class="top-value-card" data-value-name="${value.name}">
-                    <h3>
-                        ${index + 1}. ${value.name} 
-                        <span class="score-display">(Score: ${value.total})</span>
-                    </h3>
-                    <label for="meaning-${index}">O que '${value.name}' significa para você?</label>
-                    <textarea id="meaning-${index}" rows="3">${existingMeanings[value.name] || ''}</textarea>
-                    <button class="swap-btn" data-index="${index}">Trocar este Valor</button>
-                </div>
-            `;
-            top5MeaningContainer.innerHTML += cardHTML;
-        });
-    }
-
-    // Iniciar a aplicação
-    renderValues();
-});
+/* 3. O Tooltip (o resto do código do tooltip permanece o mesmo) */
+#floating-help-btn::before {
+    content: attr(data-tooltip);
+    position: absolute;
+    bottom: 110%;
+    right: 0;
+    background-color: #333;
+    color: #fff;
+    padding: 10px 15px;
+    border-radius: 5px;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 1.5;
+    text-align: left;
+    white-space: pre-wrap;
+    width: 300px;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.2s, visibility 0.2s;
+    pointer-events: none;
+}
+#floating-help-btn::after {
+    content: '';
+    position: absolute;
+    bottom: 110%;
+    right: 20px;
+    transform: translateY(100%);
+    border: 8px solid transparent;
+    border-top-color: #333;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.2s, visibility 0.2s;
+    pointer-events: none;
+}
+#floating-help-btn:hover::before,
+#floating-help-btn:hover::after {
+    opacity: 1;
+    visibility: visible;
+}

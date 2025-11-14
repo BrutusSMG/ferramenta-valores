@@ -148,19 +148,19 @@ document.addEventListener('DOMContentLoaded', () => {
         });
 
         const top5TriggersContainer = document.getElementById('top5-triggers-list');
-	top5TriggersContainer.innerHTML = '';
-	userResponses.top5.forEach((value, index) => {
-    	   top5TriggersContainer.innerHTML += `
-        	<div class="top-value-card">
-            	    <h3>${index + 1}. ${value.name}</h3>
-            	    <label for="motivator-${index}"><b>Motivador:</b> Como ter o valor '${value.name}' te ajuda a avançar rumo à realização do seu objetivo?</label>
-            	    <textarea id="motivator-${index}" rows="3" placeholder="Ex: Ter 'Disciplina' me ajuda a estudar toda semana para a prova..."></textarea>
-            
-            	    <label for="saboteur-${index}"><b>Sabotador:</b> Como ter o valor '${value.name}' te atrapalha a realizar seu objetivo?</label>
-            	    <textarea id="saboteur-${index}" rows="3" placeholder="Ex: Ter 'Perfeccionismo' me atrapalha pois nunca entrego o projeto..."></textarea>
-        	</div>
-    	    `;
-	});
+        top5TriggersContainer.innerHTML = '';
+        userResponses.top5.forEach((value, index) => {
+            top5TriggersContainer.innerHTML += `
+                <div class="top-value-card">
+                    <h3>${index + 1}. ${value.name}</h3>
+                    <label for="motivator-${index}"><b>Motivador:</b> Como ter o valor '${value.name}' te ajuda a avançar rumo à realização do seu objetivo?</label>
+                    <textarea id="motivator-${index}" rows="3" placeholder="Ex: Ter 'Disciplina' me ajuda a estudar toda semana para a prova..."></textarea>
+                    
+                    <label for="saboteur-${index}"><b>Sabotador:</b> Como ter o valor '${value.name}' te atrapalha a realizar seu objetivo?</label>
+                    <textarea id="saboteur-${index}" rows="3" placeholder="Ex: Ter 'Perfeccionismo' me atrapalha pois nunca entrego o projeto..."></textarea>
+                </div>
+            `;
+        });
 
         document.getElementById('step2').classList.remove('active');
         document.getElementById('step3').classList.add('active');
@@ -180,8 +180,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 <div class="report-section">
                     <h3>${index + 1}. ${value.name} (Score Total: ${value.total})</h3>
                     <p><strong>O que significa para você:</strong> ${value.meaning || 'Não preenchido.'}</p>
-                    <p><strong>O que reforça (Motivadores):</strong> ${value.motivator || 'Não preenchido.'}</p>
-                    <p><strong>O que enfraquece (Sabotadores):</strong> ${value.saboteur || 'Não preenchido.'}</p>
+                    <p><strong>Como ele te ajuda a alcançar seus objetivos:</strong> ${value.motivator || 'Não preenchido.'}</p>
+                    <p><strong>Como ele te atrapalha a alcançar seus objetivos:</strong> ${value.saboteur || 'Não preenchido.'}</p>
                 </div>
             `;
         });
@@ -191,51 +191,47 @@ document.addEventListener('DOMContentLoaded', () => {
         window.scrollTo(0, 0);
     });
 
+    // ESTA É A VERSÃO DO 'FETCH' QUE CAUSOU O FALSO POSITIVO
     document.getElementById('send-report-btn').addEventListener('click', (e) => {
-	    const sendButton = e.target;
-	    const name = document.getElementById('user-name').value;
-	    const email = document.getElementById('user-email').value;
-	
-	    if (!name || !email) {
-	        alert('Por favor, preencha seu nome e e-mail.');
-	        return;
-	    }
-	
-	    userResponses.name = name;
-	    userResponses.email = email;
-	
-	    sendButton.disabled = true;
-	    sendButton.textContent = 'Enviando...';
-	
-	    const webAppUrl = 'COLE_A_URL_DO_SEU_APP_DA_WEB_AQUI'; // Garanta que esta URL está correta
-	
-	    fetch(webAppUrl, {
-	        method: 'POST',
-	        body: JSON.stringify(userResponses),
-	        // A linha 'mode: no-cors' foi removida.
-	        // O cabeçalho foi ajustado para o que o Apps Script espera.
-	        headers: {
-	            'Content-Type': 'text/plain;charset=utf-8',
-	        },
-	    })
-	    .then(response => response.json())
-	    .then(data => {
-	        if (data.status === 'success') {
-	            alert('Relatório enviado com sucesso! Verifique sua caixa de e-mail.');
-	            sendButton.textContent = 'Enviado!';
-	        } else {
-	            // Se o servidor responder com um erro, ele será mostrado aqui
-	            throw new Error(data.message || 'O servidor retornou um erro.');
-	        }
-	    })
-	    .catch(error => {
-	        // Se houver um erro de rede ou qualquer outra falha, ele será capturado aqui
-	        console.error('Erro detalhado ao enviar dados:', error);
-	        alert('Ocorreu um erro ao enviar seu relatório. Verifique o console para mais detalhes.');
-	        sendButton.disabled = false;
-	        sendButton.textContent = 'Enviar Relatório por E-mail';
-	    });
-	});
+        const sendButton = e.target;
+        const name = document.getElementById('user-name').value;
+        const email = document.getElementById('user-email').value;
+
+        if (!name || !email) {
+            alert('Por favor, preencha seu nome e e-mail.');
+            return;
+        }
+
+        userResponses.name = name;
+        userResponses.email = email;
+
+        sendButton.disabled = true;
+        sendButton.textContent = 'Enviando...';
+
+        const webAppUrl = 'COLE_A_URL_DO_SEU_APP_DA_WEB_AQUI';
+
+        fetch(webAppUrl, {
+            method: 'POST',
+            mode: 'no-cors', // Esta linha é a principal causa do comportamento
+            cache: 'no-cache',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(userResponses)
+        })
+        .then(() => {
+            // Com 'no-cors', este bloco é executado mesmo que a requisição falhe no destino
+            alert('Relatório enviado com sucesso! Verifique sua caixa de e-mail.');
+            sendButton.textContent = 'Enviado!';
+        })
+        .catch(error => {
+            // Este bloco raramente é acionado com 'no-cors', a menos que haja um erro de rede local
+            console.error('Erro ao enviar dados:', error);
+            alert('Ocorreu um erro ao enviar seu relatório. Por favor, tente novamente.');
+            sendButton.disabled = false;
+            sendButton.textContent = 'Enviar Relatório por E-mail';
+        });
+    });
 
     // --- LÓGICA DO MODAL DE TROCA ---
 

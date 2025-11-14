@@ -208,7 +208,7 @@ document.addEventListener('DOMContentLoaded', () => {
         sendButton.disabled = true;
         sendButton.textContent = 'Enviando...';
 
-        const webAppUrl = 'COLE_A_URL_DO_SEU_APP_DA_WEB_AQUI';
+        const webAppUrl = 'https://script.google.com/macros/s/AKfycbz-ydBvB19aEYJGF2Xsf_bDQrA86_M0mkRLbX_54sEZTfGs2-7ngc9_7syeYT85zTHe/exec';
 
         fetch(webAppUrl, {
             method: 'POST',

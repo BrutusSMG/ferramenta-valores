@@ -180,27 +180,29 @@ document.addEventListener('DOMContentLoaded', () => {
         window.scrollTo(0, 0);
     });
 
+    // VERSÃO NOVA E CORRIGIDA
     document.getElementById('goto-step3-btn').addEventListener('click', () => {
-        userResponses.top5.forEach((value, index) => {
+    	userResponses.top5.forEach((value, index) => {
             value.meaning = document.getElementById(`meaning-${index}`).value;
-        });
-        const container = document.getElementById('top5-triggers-list');
-        container.innerHTML = '';
-        userResponses.top5.forEach((value, index) => {
+    	});
+    	const container = document.getElementById('top5-triggers-list');
+    	container.innerHTML = '';
+    	userResponses.top5.forEach((value, index) => {
             container.innerHTML += `
-                <div class="top-value-card">
+            	<div class="top-value-card">
                     <h3>${index + 1}. ${value.name}</h3>
                     <label for="motivator-${index}"><b>Motivador:</b> Como ter o valor '${value.name}' te ajuda a avançar rumo à realização do seu objetivo?</label>
-                    <textarea id="motivator-${index}" rows="3" placeholder="Ex: Ter 'Disciplina' me ajuda a estudar toda semana..."></textarea>
+                    <textarea id="motivator-${index}" rows="3" placeholder="Ex: Minha 'Honestidade' me ajuda a construir confiança..."></textarea>
                     <label for="saboteur-${index}"><b>Sabotador:</b> Como ter o valor '${value.name}' te atrapalha a realizar seu objetivo?</label>
-                    <textarea id="saboteur-${index}" rows="3" placeholder="Ex: Ter 'Perfeccionismo' me atrapalha pois nunca entrego..."></textarea>
-                </div>
+                    <textarea id="saboteur-${index}" rows="3" placeholder="Ex: Minha 'Honestidade' excessiva me faz criar conflitos..."></textarea>
+            	</div>
             `;
-        });
-        document.getElementById('step2').classList.remove('active');
-        document.getElementById('step3').classList.add('active');
-        window.scrollTo(0, 0);
+    	});
+    	document.getElementById('step2').classList.remove('active');
+    	document.getElementById('step3').classList.add('active');
+    	window.scrollTo(0, 0);
     });
+
 
     document.getElementById('goto-step4-btn').addEventListener('click', () => {
         userResponses.top5.forEach((value, index) => {

@@ -4,109 +4,119 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Ferramenta de Descoberta de Valores</title>
-    <link rel="stylesheet" href="style.css">
+    
+    <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@400;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Stylesheet -->
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
+
     <div class="container">
         <header>
-            <!-- Seu logo pode ir aqui -->
             <h1>Ferramenta de Descoberta de Valores</h1>
-            <p class="subtitle">Sua bússola interna para decisões mais claras</p>
+            <p>Sua bússola interna para decisões mais claras</p>
         </header>
 
-        <main id="app">
-            <!-- ETAPA 1: PONTUAÇÃO DOS VALORES -->
-            <section id="step1" class="step active">
-                <h2>Etapa 1: Mapeie seus Valores</h2>
-                <p class="instructions">
-                    Para cada valor abaixo, dê duas notas de 0 a 10.</br>
-                    <b>(I) Importância:</b> 0 = Sem importância | 10 = Total importância</br>
-                    <b>(S) Sentimento:</b> 0 = Nenhum pouco mal | 10 = Totalmente mal
-                </p>
-                <div id="values-list">
-                    <!-- A lista de valores será inserida aqui pelo JavaScript -->
-                </div>
-                <div class="custom-value-adder">
-                    <h3>Sentiu falta de algum valor?</h3>
-                    <div class="input-group">
-                        <input type="text" id="custom-value-name" placeholder="Digite o nome do seu valor pessoal">
-                        <button id="add-custom-value-btn">+ Adicionar</button>
-                    </div>
-                </div>
-                <button id="goto-step2-btn" class="primary-btn" disabled>Continuar</button>
-            </section>
+        <!-- ETAPA 1: MAPEAMENTO DOS VALORES -->
+        <section id="step1" class="step active">
+            
+            <h2>Etapa 1: Mapeie seus Valores</h2>
+            
+            <div class="instructions-box">
+        	Para cada valor abaixo, dê duas notas de 0 a 10.</br>
+        	<b>Importância (I):</b> 0 = Sem importância | 10 = Total importância</br>
+        	<b>Sentimento (S):</b> 0 = Nenhum pouco mal | 10 = Totalmente mal</br>
+        	<i>Use o botão de ajuda (?) quando esta caixa sumir da tela.</i>
+    	    </div>
+            
+            <div id="values-list">
+                <!-- Cards dos valores serão inseridos aqui pelo JavaScript -->
+            </div>
+            <div class="custom-value-adder">
+                <h3>Sentiu falta de algum valor?</h3>
+                <input type="text" id="custom-value-name" placeholder="Digite o nome do seu valor pessoal">
+                <button id="add-custom-value-btn" class="secondary-btn">+ Adicionar</button>
+            </div>
+            <button id="goto-step2-btn" class="primary-btn">Analisar meu Top 5 Valores</button>
+	    <div id="floating-help-btn" class="tooltip-trigger" data-tooltip="I = Importância: O quão importante é ter este valor preenchido na sua vida?&#10;S = Sentimento: O quão mal você se sente quando este valor é desrespeitado?">
+        	?
+    	    </div>
+        </section>
 
-            <!-- ETAPA 2: SIGNIFICADO PESSOAL -->
-            <section id="step2" class="step">
-                <h2>Etapa 2: O Significado por Trás dos Valores</h2>
-                <p class="instructions">Estes são seus 5 valores principais. Agora, descreva com suas próprias palavras o que cada um deles significa para você. Se não concordar com a lista, use o botão "Trocar" para ajustá-la.</p>
-                <div id="top5-meaning-list">
-                    <!-- A lista do Top 5 para significado será inserida aqui -->
-                </div>
-                <button id="goto-step3-btn" class="primary-btn">Próximo Passo</button>
-            </section>
+        <!-- ETAPA 2: SIGNIFICADO -->
+        <section id="step2" class="step">
+            <h2>Etapa 2: O Significado dos seus Valores</h2>
+            <p class="instructions-box">Seu Top 5 inicial foi definido. Agora, para cada um deles, escreva com suas palavras o que este valor realmente significa para você.</p>
+            <div id="top5-meaning-list">
+                <!-- Cards para significado serão inseridos aqui -->
+            </div>
+            <button id="goto-step3-btn" class="primary-btn">Continuar para Motivadores</button>
+        </section>
 
-            <!-- ETAPA 3: MOTIVADORES E SABOTADORES -->
-	    <section id="step3" class="step">
-    		<h2>Etapa 3: Motivadores e Sabotadores</h2>
-    		<p class="instructions">Para finalizar, identifique os comportamentos e situações que reforçam (Motivadores) ou enfraquecem (Sabotadores) cada um dos seus valores no dia a dia.</p>
+        <!-- ETAPA 3: MOTIVADORES E SABOTADORES -->
+        <section id="step3" class="step">
+            <h2>Etapa 3: Motivadores e Sabotadores</h2>
+            <p class="instructions-box">Para finalizar a análise, identifique como cada valor te ajuda ou atrapalha a alcançar seus objetivos.</p>
+            <div class="example-box">
+                <p><strong>Exemplo prático para o valor "Justiça":</strong></p>
+                <ul>
+                    <li><strong>Ajuda (Motivador):</strong> "Meu senso de 'Justiça' me ajuda a ser um líder melhor, pois garanto que minha equipe seja tratada de forma igualitária, o que aumenta a motivação de todos."</li>
+                    <li><strong>Atrapalha (Sabotador):</strong> "Às vezes, meu senso de 'Justiça' me atrapalha, pois gasto muita energia em pequenas discussões que considero 'injustas', me desviando do meu objetivo principal."</li>
+                </ul>
+            </div>
+            <div id="top5-triggers-list">
+                <!-- Cards para motivadores/sabotadores serão inseridos aqui -->
+            </div>
+            <button id="goto-step4-btn" class="primary-btn">Iniciar a Prova de Fogo</button>
+        </section>
 
-    		<!-- NOVO BLOCO DE EXEMPLO -->
-		<div class="example-box">
-    		    <p><strong>Exemplo prático para o valor "Justiça":</strong></p>
-    		    <ul>
-        		<li>
-            		    <strong>Ajuda (Motivador):</strong> "Meu senso de 'Justiça' me ajuda a ser um líder melhor, pois garanto que minha equipe seja tratada de forma igualitária, o que aumenta a motivação de todos."
-        		</li>
-        		<li>
-            		    <strong>Atrapalha (Sabotador):</strong> "Às vezes, meu senso de 'Justiça' me atrapalha, pois gasto muita energia em pequenas discussões que considero 'injustas', me desviando do meu objetivo principal."
-        		</li>
-    		    </ul>
-		</div>
-		<!-- FIM DO NOVO BLOCO -->
+        <!-- ETAPA 4: A PROVA DE FOGO -->
+        <section id="step4" class="step">
+            <h2>Etapa 4: A Prova de Fogo</h2>
+            <p class="instructions-box">A vida é feita de escolhas. Nos cenários abaixo, qual decisão reflete mais quem você é? Escolha a opção que mais pesaria para você.</p>
+            <div id="confrontation-area">
+                <!-- Os confrontos serão inseridos aqui dinamicamente -->
+            </div>
+            <div id="progress-bar-container">
+                <div id="progress-bar"></div>
+            </div>
+            <p id="progress-text"></p>
+            <button id="goto-step5-btn" class="primary-btn" disabled>Analisar Ranking Final</button>
+        </section>
 
-
-    		<div id="top5-triggers-list">
-        	    <!-- A lista do Top 5 para motivadores/sabotadores será inserida aqui -->
-    		</div>
-    		<button id="finish-btn" class="primary-btn">Finalizar e Ver meu Relatório</button>
-	    </section>
-
-
-            <!-- ETAPA 4: RELATÓRIO FINAL -->
-            <section id="step4" class="step">
-                <h2>Seu Relatório de Valores</h2>
-                <p class="instructions">Parabéns por concluir a jornada! Use este mapa como um guia para suas decisões e ações. Abaixo está o resumo completo da sua hierarquia de valores.</p>
-                <div id="final-report">
-                    <!-- O relatório final será gerado aqui -->
-                </div>
-                <div class="capture-lead">
-                    <h3>Gostou do resultado?</h3>
-                    <p>Receba uma cópia completa deste relatório no seu e-mail.</p>
-                    <input type="text" id="user-name" placeholder="Seu nome">
-                    <input type="email" id="user-email" placeholder="Seu melhor e-mail">
-                    <button id="send-report-btn" class="primary-btn">Enviar Relatório por E-mail</button>
-                </div>
-            </section>
-        </main>
+        <!-- ETAPA 5: RELATÓRIO FINAL E ENVIO -->
+        <section id="step5" class="step">
+            <div id="final-report">
+                <!-- O relatório final será inserido aqui -->
+            </div>
+            <div class="email-form">
+                <h3>Gostou do resultado?</h3>
+                <p>Receba uma cópia completa deste relatório no seu e-mail.</p>
+                <input type="text" id="user-name" placeholder="Seu nome">
+                <input type="email" id="user-email" placeholder="Seu melhor e-mail">
+                <button id="send-report-btn" class="primary-btn">Enviar Relatório por E-mail</button>
+            </div>
+        </section>
     </div>
 
-    <script src="script.js"></script>
-
-    <!-- HTML DO MODAL DE TROCA (invisível por padrão) -->
-    <div id="swap-modal" class="modal-overlay">
+    <!-- MODAL PARA TROCA DE VALORES -->
+    <div id="swap-modal" class="modal">
         <div class="modal-content">
+            <span id="modal-close-btn" class="close-btn">&times;</span>
             <h3>Trocar Valor</h3>
-            <p>Selecione um valor da lista abaixo para substituir <b id="value-to-replace"></b>.</p>
-            <ul id="replacement-list" class="replacement-list">
-                <!-- Lista de valores substitutos será inserida aqui -->
+            <p>Qual valor você gostaria de colocar no lugar de <b id="value-to-replace"></b>?</p>
+            <ul id="replacement-list">
+                <!-- Lista de valores para troca será inserida aqui -->
             </ul>
-            <button id="modal-close-btn" class="primary-btn modal-close-btn">Cancelar</button>
         </div>
     </div>
+
+    <!-- Script principal da aplicação -->
+    <script src="script.js"></script>
 
 </body>
 </html>

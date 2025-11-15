@@ -264,7 +264,7 @@ document.addEventListener('DOMContentLoaded', () => {
         sendButton.disabled = true;
         sendButton.textContent = 'Enviando...';
 
-        const webAppUrl = 'https://script.google.com/macros/s/AKfycbwZaybAbOLz3mpqy2oq-B7kWeaBM6XPnHvg3Cra0SuyoCp-xPrCltegC3e9VZsWLfRF/exec'; // <-- SUA URL AQUI
+        const webAppUrl = 'https://script.google.com/macros/s/AKfycbxkZlLItQMCsLuMs45nkHUzkR1LdhEQR6umUlKDQ2X9D0g_Q1oy7975WmtVAkZ5BkLD/exec'; // <-- SUA URL AQUI
 
         fetch(webAppUrl, {
             method: 'POST',

@@ -249,43 +249,52 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     // ==================================================================
-    // === BLOCO DE ENVIO FINAL E CORRIGIDO COM 'no-cors'             ===
+    // === BLOCO DE ENVIO FINAL - VERSÃO FormData                     ===
     // ==================================================================
     document.getElementById('send-report-btn').addEventListener('click', (e) => {
-        const sendButton = e.target;
-        const name = document.getElementById('user-name').value;
-        const email = document.getElementById('user-email').value;
-        if (!name || !email) {
+    	const sendButton = e.target;
+    	const name = document.getElementById('user-name').value;
+    	const email = document.getElementById('user-email').value;
+    	if (!name || !email) {
             alert('Por favor, preencha seu nome e e-mail.');
             return;
-        }
-        userResponses.name = name;
-        userResponses.email = email;
-        sendButton.disabled = true;
-        sendButton.textContent = 'Enviando...';
+	}
+    	userResponses.name = name;
+    	userResponses.email = email;
+    	sendButton.disabled = true;
+    	sendButton.textContent = 'Enviando...';
 
-        const webAppUrl = 'https://script.google.com/macros/s/AKfycbx73Sxz-Q4Iwht13hphp_ZBt618phv9XLOl5jxCb-O0QJ-aOJ9Fv4SPhzIwBuYrXrWt/exec'; // <-- SUA URL AQUI
+    	const webAppUrl = 'https://script.google.com/macros/s/AKfycbx73Sxz-Q4Iwht13hphp_ZBt618phv9XLOl5jxCb-O0QJ-aOJ9Fv4SPhzIwBuYrXrWt/exec'; // <-- SUA URL AQUI
 
-        fetch(webAppUrl, {
+    	// Usando FormData para contornar problemas de CORS e Content-Type
+    	const formData = new FormData( );
+    	formData.append('jsonData', JSON.stringify(userResponses));
+
+    	fetch(webAppUrl, {
             method: 'POST',
-            mode: 'no-cors', // <-- MUDANÇA CRUCIAL AQUI
-            body: JSON.stringify(userResponses ),
-            headers: { 'Content-Type': 'application/json' },
-        })
-        .then(() => {
-            // Com 'no-cors', a resposta é opaca. Não podemos ler o status.
-            // Então, assumimos que o envio deu certo e deixamos o Apps Script lidar com os erros.
-            alert('Seu relatório está sendo processado! Verifique sua caixa de e-mail em alguns instantes.');
-            sendButton.textContent = 'Enviado!';
-        })
-        .catch(error => {
-            // Este erro só acontecerá se houver um problema de rede real (ex: sem internet).
+            body: formData,
+    	})
+    	.then(response => response.json()) // Agora podemos ler a resposta!
+    	.then(data => {
+            if (data.status === 'success') {
+            	alert('Seu relatório foi enviado com sucesso! Verifique sua caixa de e-mail.');
+            	sendButton.textContent = 'Enviado!';
+            } else {
+            	// Se o Apps Script retornar um erro, vamos mostrá-lo.
+            	console.error('Erro retornado pelo servidor:', data.message);
+            	alert('Ocorreu um erro no servidor ao processar seu relatório. A equipe já foi notificada.');
+            	sendButton.disabled = false;
+            	sendButton.textContent = 'Enviar Relatório por E-mail';
+            }
+    	})
+    	.catch(error => {
             console.error('Erro de rede ao tentar enviar dados:', error);
             alert('Ocorreu um erro de rede ao enviar seu relatório. Por favor, tente novamente.');
             sendButton.disabled = false;
             sendButton.textContent = 'Enviar Relatório por E-mail';
-        });
+    	});
     });
+
 
     // --- BLOCO DO MODAL FINAL E CORRIGIDO ---
     const swapModal = document.getElementById('swap-modal');

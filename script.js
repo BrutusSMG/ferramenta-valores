@@ -248,7 +248,9 @@ document.addEventListener('DOMContentLoaded', () => {
         window.scrollTo(0, 0);
     });
 
-    // --- BLOCO DE ENVIO FINAL E CORRIGIDO ---
+    // ==================================================================
+    // === BLOCO DE ENVIO FINAL E CORRIGIDO COM 'no-cors'             ===
+    // ==================================================================
     document.getElementById('send-report-btn').addEventListener('click', (e) => {
         const sendButton = e.target;
         const name = document.getElementById('user-name').value;
@@ -262,27 +264,22 @@ document.addEventListener('DOMContentLoaded', () => {
         sendButton.disabled = true;
         sendButton.textContent = 'Enviando...';
 
-        const webAppUrl = 'https://script.google.com/macros/s/AKfycbwZaybAbOLz3mpqy2oq-B7kWeaBM6XPnHvg3Cra0SuyoCp-xPrCltegC3e9VZsWLfRF/exec'; // <-- COLOQUE SUA URL AQUI
+        const webAppUrl = 'https://script.google.com/macros/s/AKfycbwZaybAbOLz3mpqy2oq-B7kWeaBM6XPnHvg3Cra0SuyoCp-xPrCltegC3e9VZsWLfRF/exec'; // <-- SUA URL AQUI
 
         fetch(webAppUrl, {
             method: 'POST',
-            mode: 'cors',
-            body: JSON.stringify(userResponses),
+            mode: 'no-cors', // <-- MUDANÇA CRUCIAL AQUI
+            body: JSON.stringify(userResponses ),
             headers: { 'Content-Type': 'application/json' },
         })
-        .then(response => response.json())
-        .then(data => {
-            if (data.status === 'success') {
-                alert('Relatório enviado com sucesso! Verifique sua caixa de e-mail em alguns instantes.');
-                sendButton.textContent = 'Enviado!';
-            } else {
-                console.error('Erro retornado pelo servidor:', data.message);
-                alert('Ocorreu um erro no servidor ao gerar seu relatório. A equipe já foi notificada.');
-                sendButton.disabled = false;
-                sendButton.textContent = 'Enviar Relatório por E-mail';
-            }
+        .then(() => {
+            // Com 'no-cors', a resposta é opaca. Não podemos ler o status.
+            // Então, assumimos que o envio deu certo e deixamos o Apps Script lidar com os erros.
+            alert('Seu relatório está sendo processado! Verifique sua caixa de e-mail em alguns instantes.');
+            sendButton.textContent = 'Enviado!';
         })
         .catch(error => {
+            // Este erro só acontecerá se houver um problema de rede real (ex: sem internet).
             console.error('Erro de rede ao tentar enviar dados:', error);
             alert('Ocorreu um erro de rede ao enviar seu relatório. Por favor, tente novamente.');
             sendButton.disabled = false;

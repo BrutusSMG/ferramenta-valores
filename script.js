@@ -264,7 +264,7 @@ document.addEventListener('DOMContentLoaded', () => {
     	sendButton.disabled = true;
     	sendButton.textContent = 'Enviando...';
 
-    	const webAppUrl = 'https://script.google.com/macros/s/AKfycbx73Sxz-Q4Iwht13hphp_ZBt618phv9XLOl5jxCb-O0QJ-aOJ9Fv4SPhzIwBuYrXrWt/exec'; // <-- SUA URL AQUI
+    	const webAppUrl = 'https://script.google.com/macros/s/AKfycbwaYCgNj_P1mVREkedsYEZM0auqjvDBKAQllqyX68t1Y2cYzFxKBRsZ3edKXgOrMryP/exec'; // <-- SUA URL AQUI
 
     	// Usando FormData para contornar problemas de CORS e Content-Type
     	const formData = new FormData( );

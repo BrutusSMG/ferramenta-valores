@@ -1,25 +1,20 @@
 document.addEventListener('DOMContentLoaded', () => {
 
     // =======================================================
-    // === NOVA LÓGICA PARA O BOTÃO DE AJUDA FLUTUANTE     ===
+    // === LÓGICA PARA O BOTÃO DE AJUDA FLUTUANTE          ===
     // =======================================================
     const helpBtn = document.getElementById('floating-help-btn');
     const instructionsBox = document.querySelector('#step1 .instructions-box');
 
-    // Cria um "observador" que monitora quando um elemento entra ou sai da tela
     const observer = new IntersectionObserver((entries) => {
-        // 'entries' é uma lista de elementos observados (no nosso caso, só a instructionsBox)
         const entry = entries[0];
-        
-        // Se a caixa de instruções NÃO está visível na tela...
         if (!entry.isIntersecting) {
-            helpBtn.classList.add('visible'); // Mostra o botão de ajuda
+            helpBtn.classList.add('visible');
         } else {
-            helpBtn.classList.remove('visible'); // Esconde o botão de ajuda
+            helpBtn.classList.remove('visible');
         }
     });
 
-    // Inicia a observação da caixa de instruções
     if (instructionsBox) {
         observer.observe(instructionsBox);
     }
@@ -98,45 +93,42 @@ document.addEventListener('DOMContentLoaded', () => {
     };
 
     const renderConfrontation = () => {
-    	const confrontationArea = document.getElementById('confrontation-area');
-    	const progressBar = document.getElementById('progress-bar');
-    	const progressText = document.getElementById('progress-text');
+        const confrontationArea = document.getElementById('confrontation-area');
+        const progressBar = document.getElementById('progress-bar');
+        const progressText = document.getElementById('progress-text');
 
-    	if (currentConfrontationIndex >= confrontationPairs.length) {
+        if (currentConfrontationIndex >= confrontationPairs.length) {
             confrontationArea.innerHTML = '<p style="text-align: center; font-size: 18px;">Prova de Fogo finalizada!</p>';
             document.getElementById('goto-step5-btn').disabled = false;
             progressText.textContent = `Confrontos concluídos!`;
             progressBar.style.width = `100%`;
             return;
-    	}
+        }
 
-    	const pair = confrontationPairs[currentConfrontationIndex];
-    	const value1 = pair[0];
-    	const value2 = pair[1];
+        const pair = confrontationPairs[currentConfrontationIndex];
+        const value1 = pair[0];
+        const value2 = pair[1];
 
-    	const scenario1 = valueScenarios[value1.name] || `Priorizar seu valor de ${value1.name}.`;
-    	const scenario2 = valueScenarios[value2.name] || `Priorizar seu valor de ${value2.name}.`;
+        const scenario1 = valueScenarios[value1.name] || `Priorizar seu valor de ${value1.name}.`;
+        const scenario2 = valueScenarios[value2.name] || `Priorizar seu valor de ${value2.name}.`;
 
-    	// =======================================================
-    	// === NOVA ESTRUTURA HTML PARA TÍTULO E DESCRIÇÃO     ===
-    	// =======================================================
-    	confrontationArea.innerHTML = `
-    	    <div class="confrontation-card">
-        	<button class="choice-btn" data-winner="${value1.name}">
+        confrontationArea.innerHTML = `
+            <div class="confrontation-card">
+                <button class="choice-btn" data-winner="${value1.name}">
                     <div class="choice-title">${value1.name}</div>
                     <div class="choice-scenario">${scenario1}</div>
-            	</button>
-            	<span>ou</span>
-            	<button class="choice-btn" data-winner="${value2.name}">
+                </button>
+                <span>ou</span>
+                <button class="choice-btn" data-winner="${value2.name}">
                     <div class="choice-title">${value2.name}</div>
                     <div class="choice-scenario">${scenario2}</div>
-            	</button>
+                </button>
             </div>
-    	`;
+        `;
 
-    	const progress = ((currentConfrontationIndex) / confrontationPairs.length) * 100;
-    	progressBar.style.width = `${progress}%`;
-    	progressText.textContent = `Confronto ${currentConfrontationIndex + 1} de ${confrontationPairs.length}`;
+        const progress = ((currentConfrontationIndex) / confrontationPairs.length) * 100;
+        progressBar.style.width = `${progress}%`;
+        progressText.textContent = `Confronto ${currentConfrontationIndex + 1} de ${confrontationPairs.length}`;
     };
 
     // ------------------------------------------------------------------
@@ -178,35 +170,31 @@ document.addEventListener('DOMContentLoaded', () => {
         renderStep2();
         document.getElementById('step1').classList.remove('active');
         document.getElementById('step2').classList.add('active');
-
-	introCard.style.display = 'none';
-
+        introCard.style.display = 'none';
         window.scrollTo(0, 0);
     });
 
-    // VERSÃO NOVA E CORRIGIDA
     document.getElementById('goto-step3-btn').addEventListener('click', () => {
-    	userResponses.top5.forEach((value, index) => {
+        userResponses.top5.forEach((value, index) => {
             value.meaning = document.getElementById(`meaning-${index}`).value;
-    	});
-    	const container = document.getElementById('top5-triggers-list');
-    	container.innerHTML = '';
-    	userResponses.top5.forEach((value, index) => {
+        });
+        const container = document.getElementById('top5-triggers-list');
+        container.innerHTML = '';
+        userResponses.top5.forEach((value, index) => {
             container.innerHTML += `
-            	<div class="top-value-card">
+                <div class="top-value-card">
                     <h3>${index + 1}. ${value.name}</h3>
                     <label for="motivator-${index}"><b>Motivador:</b> Como ter o valor '${value.name}' te ajuda a avançar rumo à realização do seu objetivo?</label>
                     <textarea id="motivator-${index}" rows="3" placeholder="Ex: Minha 'Honestidade' me ajuda a construir confiança..."></textarea>
                     <label for="saboteur-${index}"><b>Sabotador:</b> Como ter o valor '${value.name}' te atrapalha a realizar seu objetivo?</label>
                     <textarea id="saboteur-${index}" rows="3" placeholder="Ex: Minha 'Honestidade' excessiva me faz criar conflitos..."></textarea>
-            	</div>
+                </div>
             `;
-    	});
-    	document.getElementById('step2').classList.remove('active');
-    	document.getElementById('step3').classList.add('active');
-    	window.scrollTo(0, 0);
+        });
+        document.getElementById('step2').classList.remove('active');
+        document.getElementById('step3').classList.add('active');
+        window.scrollTo(0, 0);
     });
-
 
     document.getElementById('goto-step4-btn').addEventListener('click', () => {
         userResponses.top5.forEach((value, index) => {
@@ -227,22 +215,16 @@ document.addEventListener('DOMContentLoaded', () => {
         window.scrollTo(0, 0);
     });
 
-    // VERSÃO NOVA E CORRIGIDA
     document.getElementById('confrontation-area').addEventListener('click', (e) => {
-    	// Procura pelo botão .choice-btn mais próximo do local onde o clique ocorreu
-    	const choiceButton = e.target.closest('.choice-btn');
-
-    	// Se encontrou um botão...
-    	if (choiceButton) {
+        const choiceButton = e.target.closest('.choice-btn');
+        if (choiceButton) {
             const winnerName = choiceButton.dataset.winner;
             const winnerValue = userResponses.top5.find(v => v.name === winnerName);
             if (winnerValue) winnerValue.wins++;
-        
             currentConfrontationIndex++;
             renderConfrontation();
-    	}
+        }
     });
-
 
     document.getElementById('goto-step5-btn').addEventListener('click', () => {
         userResponses.top5.sort((a, b) => {
@@ -266,6 +248,7 @@ document.addEventListener('DOMContentLoaded', () => {
         window.scrollTo(0, 0);
     });
 
+    // --- BLOCO DE ENVIO FINAL E CORRIGIDO ---
     document.getElementById('send-report-btn').addEventListener('click', (e) => {
         const sendButton = e.target;
         const name = document.getElementById('user-name').value;
@@ -278,16 +261,26 @@ document.addEventListener('DOMContentLoaded', () => {
         userResponses.email = email;
         sendButton.disabled = true;
         sendButton.textContent = 'Enviando...';
-        const webAppUrl = 'https://script.google.com/macros/s/AKfycbz-ydBvB19aEYJGF2Xsf_bDQrA86_M0mkRLbX_54sEZTfGs2-7ngc9_7syeYT85zTHe/exec';
+
+        const webAppUrl = 'https://script.google.com/macros/s/AKfycbwZaybAbOLz3mpqy2oq-B7kWeaBM6XPnHvg3Cra0SuyoCp-xPrCltegC3e9VZsWLfRF/exec'; // <-- COLOQUE SUA URL AQUI
+
         fetch(webAppUrl, {
             method: 'POST',
-            mode: 'no-cors',
+            mode: 'cors',
             body: JSON.stringify(userResponses),
             headers: { 'Content-Type': 'application/json' },
         })
-        .then(() => {
-            alert('Relatório enviado com sucesso! Verifique sua caixa de e-mail em alguns instantes.');
-            sendButton.textContent = 'Enviado!';
+        .then(response => response.json())
+        .then(data => {
+            if (data.status === 'success') {
+                alert('Relatório enviado com sucesso! Verifique sua caixa de e-mail em alguns instantes.');
+                sendButton.textContent = 'Enviado!';
+            } else {
+                console.error('Erro retornado pelo servidor:', data.message);
+                alert('Ocorreu um erro no servidor ao gerar seu relatório. A equipe já foi notificada.');
+                sendButton.disabled = false;
+                sendButton.textContent = 'Enviar Relatório por E-mail';
+            }
         })
         .catch(error => {
             console.error('Erro de rede ao tentar enviar dados:', error);
@@ -297,6 +290,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
+    // --- BLOCO DO MODAL FINAL E CORRIGIDO ---
     const swapModal = document.getElementById('swap-modal');
     const top5MeaningContainer = document.getElementById('top5-meaning-list');
     const valueToReplaceEl = document.getElementById('value-to-replace');

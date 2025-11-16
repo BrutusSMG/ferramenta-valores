@@ -284,54 +284,69 @@ document.addEventListener('DOMContentLoaded', () => {
         window.scrollTo(0, 0);
     });
 
-    // ==================================================================
-    // === BLOCO DE ENVIO FINAL - VERSÃO FormData                     ===
-    // ==================================================================
-    document.getElementById('send-report-btn').addEventListener('click', (e) => {
-    	const sendButton = e.target;
-    	const name = document.getElementById('user-name').value;
-    	const email = document.getElementById('user-email').value;
-    	if (!name || !email) {
-            alert('Por favor, preencha seu nome e e-mail.');
-            return;
-	}
-    	userResponses.name = name;
-    	userResponses.email = email;
-    	sendButton.disabled = true;
-    	sendButton.textContent = 'Enviando...';
+	// ==================================================================
+	// === BLOCO DE ENVIO FINAL - COM BARRA DE PROGRESSO E MODAL      ===
+	// ==================================================================
+	document.getElementById('send-report-btn').addEventListener('click', (e) => {
+		const sendButton = e.target;
+		const name = document.getElementById('user-name').value;
+		const email = document.getElementById('user-email').value;
 
-    	const webAppUrl = 'https://script.google.com/macros/s/AKfycbwaYCgNj_P1mVREkedsYEZM0auqjvDBKAQllqyX68t1Y2cYzFxKBRsZ3edKXgOrMryP/exec'; // <-- SUA URL AQUI
+		if (!name || !email) {
+			alert('Por favor, preencha seu nome e e-mail.');
+			return;
+		}
 
-    	// Usando FormData para contornar problemas de CORS e Content-Type
-    	const formData = new FormData( );
-    	formData.append('jsonData', JSON.stringify(userResponses));
+		userResponses.name = name;
+		userResponses.email = email;
 
-    	fetch(webAppUrl, {
-            method: 'POST',
-            body: formData,
-    	})
-    	.then(response => response.json()) // Agora podemos ler a resposta!
-    	.then(data => {
-            if (data.status === 'success') {
-            	alert('Seu relatório foi enviado com sucesso! Verifique sua caixa de e-mail.');
+		// 1. Mostra a barra de progresso e desativa o botão
+		const progressOverlay = document.getElementById('progress-overlay');
+		progressOverlay.style.display = 'flex';
+		sendButton.disabled = true;
+		sendButton.textContent = 'Enviando...';
+
+		const webAppUrl = 'https://script.google.com/macros/s/AKfycbwaYCgNj_P1mVREkedsYEZM0auqjvDBKAQllqyX68t1Y2cYzFxKBRsZ3edKXgOrMryP/exec'; // Sua URL aqui
+
+		const formData = new FormData( );
+		formData.append('jsonData', JSON.stringify(userResponses));
+
+		fetch(webAppUrl, {
+			method: 'POST',
+			body: formData,
+		})
+		.then(response => response.json())
+		.then(data => {
+			// 2. Esconde a barra de progresso
+			progressOverlay.style.display = 'none';
+
+			if (data.status === 'success') {
+				// 3. Mostra o modal de sucesso
+				document.getElementById('success-modal').style.display = 'flex';
+			} else {
+				// Se der erro, mostra um alerta e reativa o botão
+				console.error('Erro retornado pelo servidor:', data.message);
+				alert('Ocorreu um erro no servidor ao processar seu relatório. A equipe já foi notificada.');
+				sendButton.disabled = false;
+				sendButton.textContent = 'Enviar Relatório por E-mail';
+			}
+		})
+		.catch(error => {
+			// Se der erro de rede, esconde a barra, mostra alerta e reativa o botão
+			progressOverlay.style.display = 'none';
+			console.error('Erro de rede ao tentar enviar dados:', error);
+			alert('Ocorreu um erro de rede ao enviar seu relatório. Por favor, tente novamente.');
+			sendButton.disabled = false;
+			sendButton.textContent = 'Enviar Relatório por E-mail';
+		});
+	});
+
+	// Adiciona o listener para o botão "OK" do modal de sucesso
+	document.getElementById('success-ok-btn').addEventListener('click', () => {
+		// Esconde o modal e reseta a aplicação
+		document.getElementById('success-modal').style.display = 'none';
 		resetApp();
-
-            } else {
-            	// Se o Apps Script retornar um erro, vamos mostrá-lo.
-            	console.error('Erro retornado pelo servidor:', data.message);
-            	alert('Ocorreu um erro no servidor ao processar seu relatório. A equipe já foi notificada.');
-            	sendButton.disabled = false;
-            	sendButton.textContent = 'Enviar Relatório por E-mail';
-            }
-    	})
-    	.catch(error => {
-            console.error('Erro de rede ao tentar enviar dados:', error);
-            alert('Ocorreu um erro de rede ao enviar seu relatório. Por favor, tente novamente.');
-	    const sendButton = document.getElementById('send-report-btn');
-            sendButton.disabled = false;
-            sendButton.textContent = 'Enviar Relatório por E-mail';
-    	});
-    });
+	});
 
 
     // --- BLOCO DO MODAL FINAL E CORRIGIDO ---

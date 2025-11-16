@@ -473,3 +473,54 @@ button {
     visibility: visible;
 }
 
+/* ================================================================== */
+/* === ESTILOS RESPONSIVOS PARA CELULARES E TELAS PEQUENAS        === */
+/* ================================================================== */
+
+/* Aplica estes estilos quando a tela for menor que 768px de largura */
+@media (max-width: 768px) {
+
+    /* 1. Ajusta o container principal para ocupar a tela toda */
+    .container {
+        padding: 15px 20px; /* Reduz o espaçamento interno */
+    }
+
+    /* 2. Corrige o layout do "Adicionar Valor" (um item por linha) */
+    .custom-value-adder {
+        flex-direction: column; /* Coloca os itens em coluna (um em cima do outro) */
+        align-items: stretch;   /* Faz os itens esticarem para preencher a largura */
+        gap: 15px;              /* Aumenta o espaço entre eles */
+    }
+
+    .custom-value-adder h3 {
+        text-align: center; /* Centraliza o título */
+    }
+
+    /* 3. Corrige o layout da "Prova de Fogo" (Etapa 4) */
+    .confrontation-card {
+        flex-direction: column; /* Botões um em cima do outro */
+        gap: 15px;
+    }
+
+    .choice-btn {
+        width: 100%; /* Faz cada botão ocupar a largura total */
+        min-height: 100px;
+    }
+
+    /* 4. Ajusta o formulário de e-mail (Etapa 5) */
+    .email-form input {
+        width: 95%; /* Aumenta a largura do input */
+    }
+
+    /* 5. Corrige a posição do botão de ajuda flutuante */
+    #floating-help-btn {
+        right: 15px;  /* Afasta um pouco mais da borda */
+        bottom: 15px;
+    }
+    
+    /* 6. Ajusta o tamanho do tooltip do botão de ajuda */
+    #floating-help-btn::before {
+        width: 250px; /* Deixa o balão de ajuda um pouco mais estreito */
+        right: -10px; /* Ajusta a posição horizontal do balão */
+    }
+}

@@ -44,40 +44,45 @@ document.addEventListener('DOMContentLoaded', () => {
     // ------------------------------------------------------------------
 
     // ==================================================================
-    // === FUNÇÃO PARA RESETAR A APLICAÇÃO PARA O ESTADO INICIAL    ===
-    // ==================================================================
-    function resetApp() {
-    	// 1. Limpa o objeto de respostas do usuário
-    	userResponses = {};
-    	confrontationPairs = [];
-    	currentConfrontationIndex = 0;
+	// === FUNÇÃO PARA RESETAR A APLICAÇÃO (VERSÃO CORRIGIDA)         ===
+	// ==================================================================
+	function resetApp() {
+		// 1. Limpa o objeto de respostas do usuário
+		userResponses = {};
+		confrontationPairs = [];
+		currentConfrontationIndex = 0;
 
-    	// 2. Esconde todas as etapas e mostra apenas a Etapa 1
-    	document.querySelectorAll('.step').forEach(step => step.classList.remove('active'));
-    	document.getElementById('step1').classList.add('active');
+		// --- LÓGICA DE LIMPEZA ADICIONADA AQUI ---
+		// Limpa o conteúdo dos containers das etapas futuras para remover os campos preenchidos.
+		document.getElementById('top5-meaning-list').innerHTML = ''; // Limpa os campos da Etapa 2
+		document.getElementById('top5-triggers-list').innerHTML = ''; // Limpa os campos da Etapa 3
+		// --- FIM DA LÓGICA DE LIMPEZA ---
 
-    	// 3. Reexibe o card de introdução
-    	document.getElementById('intro-card').style.display = 'block';
+		// 2. Esconde todas as etapas e mostra apenas a Etapa 1
+		document.querySelectorAll('.step').forEach(step => step.classList.remove('active'));
+		document.getElementById('step1').classList.add('active');
 
-    	// 4. Limpa os campos de nome e e-mail da Etapa 5
-    	document.getElementById('user-name').value = '';
-	document.getElementById('user-email').value = '';
-	
-    	// 5. Restaura o botão de envio da Etapa 5
-    	const sendButton = document.getElementById('send-report-btn');
-    	sendButton.disabled = false;
-    	sendButton.textContent = 'Enviar Relatório por E-mail';
-    
-    	// 6. Restaura o botão da Etapa 4 para o estado desabilitado
-    	document.getElementById('goto-step5-btn').disabled = true;
+		// 3. Reexibe o card de introdução
+		document.getElementById('intro-card').style.display = 'block';
 
-    	// 7. Renderiza os valores da Etapa 1 para resetar os sliders
-    	renderValues();
+		// 4. Limpa os campos de nome e e-mail da Etapa 5
+		document.getElementById('user-name').value = '';
+		document.getElementById('user-email').value = '';
+		
+		// 5. Restaura o botão de envio da Etapa 5
+		const sendButton = document.getElementById('send-report-btn');
+		sendButton.disabled = false;
+		sendButton.textContent = 'Enviar Relatório por E-mail';
+		
+		// 6. Restaura o botão da Etapa 4 para o estado desabilitado
+		document.getElementById('goto-step5-btn').disabled = true;
 
-    	// 8. Rola a página para o topo
-    	window.scrollTo({ top: 0, behavior: 'smooth' });
-    }
+		// 7. Renderiza os valores da Etapa 1 para resetar os sliders
+		renderValues();
 
+		// 8. Rola a página para o topo
+		window.scrollTo({ top: 0, behavior: 'smooth' });
+	}
 
     const renderValues = () => {
         valuesListContainer.innerHTML = '';

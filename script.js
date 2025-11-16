@@ -119,7 +119,7 @@ document.addEventListener('DOMContentLoaded', () => {
         userResponses.top5.forEach((value, index) => {
             top5MeaningContainer.innerHTML += `
                 <div class="top-value-card" data-value-name="${value.name}">
-                    <h3>${index + 1}. ${value.name} <span class="score-display">(Score: ${value.total})</span></h3>
+                    <h3>${index + 1}. ${value.name} <span class="score-display">(Pontuação: ${value.total})</span></h3>
                     <label for="meaning-${index}">O que '${value.name}' significa para você?</label>
                     <textarea id="meaning-${index}" rows="3">${existingMeanings[value.name] || ''}</textarea>
                     <button class="swap-btn" data-index="${index}">Trocar este Valor</button>
@@ -145,8 +145,8 @@ document.addEventListener('DOMContentLoaded', () => {
         const value1 = pair[0];
         const value2 = pair[1];
 
-        const scenario1 = valueScenarios[value1.name] || `Priorizar seu valor de ${value1.name}.`;
-        const scenario2 = valueScenarios[value2.name] || `Priorizar seu valor de ${value2.name}.`;
+        const scenario1 = valueScenarios[value1.name] || `Imagine-se em um cenário onde se exige o valor "${value1.name}".`;
+	const scenario2 = valueScenarios[value2.name] || `Imagine-se em um cenário onde se exige o valor "${value2.name}".`;
 
         confrontationArea.innerHTML = `
             <div class="confrontation-card">
@@ -272,7 +272,7 @@ document.addEventListener('DOMContentLoaded', () => {
         userResponses.top5.forEach((value, index) => {
             finalReportContainer.innerHTML += `
                 <div class="report-section">
-                    <h3>${index + 1}. ${value.name} <span class="score-display">(Score: ${value.total} | Vitórias: ${value.wins})</span></h3>
+                    <h3>${index + 1}. ${value.name} <span class="score-display">(Pontuação: ${value.total} | Vitórias: ${value.wins})</span></h3>
                     <p><strong>O que significa para você:</strong> ${value.meaning || 'Não preenchido.'}</p>
                     <p><strong>Como ele te ajuda (Motivador):</strong> ${value.motivator || 'Não preenchido.'}</p>
                     <p><strong>Como ele te atrapalha (Sabotador):</strong> ${value.saboteur || 'Não preenchido.'}</p>
@@ -351,7 +351,7 @@ document.addEventListener('DOMContentLoaded', () => {
             replacementList.innerHTML = '';
             otherValues.forEach(value => {
                 const li = document.createElement('li');
-                li.innerHTML = `<span>${value.name}</span> <b>Score: ${value.total}</b>`;
+                li.innerHTML = `<span>${value.name}</span> <b>Pontuação: ${value.total}</b>`;
                 li.dataset.valueName = value.name;
                 replacementList.appendChild(li);
             });

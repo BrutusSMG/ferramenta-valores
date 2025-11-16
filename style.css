@@ -376,6 +376,13 @@ header h1 {
 #final-report .report-section { margin-bottom: 25px; }
 #final-report h3 { color: var(--primary-color); border-bottom: 1px solid var(--border-color); padding-bottom: 8px; }
 
+input[type="text"],
+input[type="email"],
+textarea,
+button {
+    font-family: 'Lexend', sans-serif; /* Garante que todos usem a fonte Lexend */
+}
+
 /* --- ESTILOS PARA CAIXA DE EXEMPLO (ETAPA 3) --- */
 .example-box {
     background-color: #fdf8e1;

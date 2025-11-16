@@ -43,6 +43,42 @@ document.addEventListener('DOMContentLoaded', () => {
     // --- 2. FUNÇÕES DE RENDERIZAÇÃO
     // ------------------------------------------------------------------
 
+    // ==================================================================
+    // === FUNÇÃO PARA RESETAR A APLICAÇÃO PARA O ESTADO INICIAL    ===
+    // ==================================================================
+    function resetApp() {
+    	// 1. Limpa o objeto de respostas do usuário
+    	userResponses = {};
+    	confrontationPairs = [];
+    	currentConfrontationIndex = 0;
+
+    	// 2. Esconde todas as etapas e mostra apenas a Etapa 1
+    	document.querySelectorAll('.step').forEach(step => step.classList.remove('active'));
+    	document.getElementById('step1').classList.add('active');
+
+    	// 3. Reexibe o card de introdução
+    	document.getElementById('intro-card').style.display = 'block';
+
+    	// 4. Limpa os campos de nome e e-mail da Etapa 5
+    	document.getElementById('user-name').value = '';
+	document.getElementById('user-email').value = '';
+	
+    	// 5. Restaura o botão de envio da Etapa 5
+    	const sendButton = document.getElementById('send-report-btn');
+    	sendButton.disabled = false;
+    	sendButton.textContent = 'Enviar Relatório por E-mail';
+    
+    	// 6. Restaura o botão da Etapa 4 para o estado desabilitado
+    	document.getElementById('goto-step5-btn').disabled = true;
+
+    	// 7. Renderiza os valores da Etapa 1 para resetar os sliders
+    	renderValues();
+
+    	// 8. Rola a página para o topo
+    	window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+
     const renderValues = () => {
         valuesListContainer.innerHTML = '';
         allValues.forEach((value, index) => {
@@ -278,22 +314,8 @@ document.addEventListener('DOMContentLoaded', () => {
     	.then(data => {
             if (data.status === 'success') {
             	alert('Seu relatório foi enviado com sucesso! Verifique sua caixa de e-mail.');
-            	    // --- LÓGICA DE LIMPEZA ADICIONADA AQUI ---
-        
-        	    // 1. Limpa os campos de nome e e-mail
-        	    document.getElementById('user-name').value = '';
-        	    document.getElementById('user-email').value = '';
-        
-		    // 2. Reativa o botão e restaura o texto original após um pequeno atraso
-        	    setTimeout(() => {
-            	        sendButton.disabled = false;
-            	        sendButton.textContent = 'Enviar Relatório por E-mail';
-        	    }, 2000); // Atraso de 2 segundos (2000 ms)
+		resetApp();
 
-		    // 3. (Opcional, mas recomendado) Rola a página de volta para o topo
-        	    window.scrollTo({ top: 0, behavior: 'smooth' });
-
-        		// --- FIM DA LÓGICA DE LIMPEZA ---
             } else {
             	// Se o Apps Script retornar um erro, vamos mostrá-lo.
             	console.error('Erro retornado pelo servidor:', data.message);
@@ -305,6 +327,7 @@ document.addEventListener('DOMContentLoaded', () => {
     	.catch(error => {
             console.error('Erro de rede ao tentar enviar dados:', error);
             alert('Ocorreu um erro de rede ao enviar seu relatório. Por favor, tente novamente.');
+	    const sendButton = document.getElementById('send-report-btn');
             sendButton.disabled = false;
             sendButton.textContent = 'Enviar Relatório por E-mail';
     	});

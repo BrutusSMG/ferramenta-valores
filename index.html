@@ -24,18 +24,16 @@
         <div class="value-card" id="intro-card">
     	    <details class="intro-accordion">
         	<summary>
-            	    <!-- Título agora se parece com o de um valor -->
             	    <h3>O que são Valores e por que eles importam?</h3>
         	</summary>
         	<div class="accordion-content">
-            	    <!-- Descrição agora se parece com a de um valor -->
             	    <p>Seus valores são os princípios que governam, muitas vezes de forma inconsciente, suas decisões e reações. Eles são a razão pela qual algumas situações te motivam profundamente e outras te irritam ou frustram.</p>
             	    <p>Nós não vemos o mundo como ele é, mas sim como <em>nós somos</em>. Ter clareza sobre seus valores te dá um superpoder: a capacidade de entender suas próprias reações, melhorar seus relacionamentos e tomar decisões mais alinhadas com quem você realmente é.</p>
             	    <p>Esta ferramenta foi desenhada para te guiar em uma jornada de autoconhecimento em 4 passos:</p>
             	    <ol>
                 	<li><b>Mapeamento:</b> Você vai pontuar uma lista de valores com base na importância que eles têm para você.</li>
                 	<li><b>Significado:</b> Você vai definir o que seus valores mais importantes realmente significam na sua vida.</li>
-                	<li><b>Análise:</b> Você vai descobrir como cada valor atua como uma força (Motivador) ou uma fraqueza (Sabotador).</li>
+                	<li><b>Análise:</b> Você vai descobrir como cada valor atua como uma força (Motivador ) ou uma fraqueza (Sabotador).</li>
                 	<li><b>Prova de Fogo:</b> Você colocará seus valores à prova em cenários práticos para descobrir sua verdadeira hierarquia.</li>
             	    </ol>
             	    <p>Ao final, você terá um mapa claro da sua "bússola interna". Vamos começar?</p>
@@ -45,83 +43,63 @@
 
         <!-- ETAPA 1: MAPEAMENTO DOS VALORES -->
         <section id="step1" class="step active">
-            
             <h2>Etapa 1: Mapeie seus Valores</h2>
-            
             <div class="instructions-box">
         	Para cada valor abaixo, dê duas notas de 0 a 10.</br>
         	<b>Importância (I):</b> 0 = Sem importância | 10 = Total importância</br>
         	<b>Sentimento (S):</b> 0 = Nenhum pouco mal | 10 = Totalmente mal</br>
         	<i>Use o botão de ajuda (?) quando esta caixa sumir da tela.</i>
     	    </div>
-            
-            <div id="values-list">
-                <!-- Cards dos valores serão inseridos aqui pelo JavaScript -->
-            </div>
+            <div id="values-list"></div>
             <div class="custom-value-adder">
                 <h3>Sentiu falta de algum valor?</h3>
                 <input type="text" id="custom-value-name" placeholder="Digite o nome do seu valor pessoal">
                 <button id="add-custom-value-btn" class="secondary-btn">+ Adicionar</button>
             </div>
             <button id="goto-step2-btn" class="primary-btn">Analisar meu Top 5 Valores</button>
-	    <div id="floating-help-btn" class="tooltip-trigger" data-tooltip="I = Importância: O quão importante é ter este valor preenchido na sua vida?&#10;S = Sentimento: O quão mal você se sente quando este valor é desrespeitado?">
-        	?
-    	    </div>
+	    <div id="floating-help-btn" class="tooltip-trigger" data-tooltip="I = Importância: O quão importante é ter este valor preenchido na sua vida?&#10;S = Sentimento: O quão mal você se sente quando este valor é desrespeitado?">?</div>
         </section>
 
         <!-- ETAPA 2: SIGNIFICADO -->
         <section id="step2" class="step">
             <h2>Etapa 2: O Significado dos seus Valores</h2>
-            <p class="instructions-box">Seu Top 5 inicial foi definido. Agora, para cada um deles, escreva com suas palavras o que este valor realmente significa para você.</p>
-            <div id="top5-meaning-list">
-                <!-- Cards para significado serão inseridos aqui -->
-            </div>
+            <!-- TEXTO DA ETAPA 2 ATUALIZADO -->
+            <p class="instructions-box">Com base nas suas respostas, selecionamos os <strong>5 valores com maior pontuação</strong>. Agora, para dar significado a eles, escreva com suas palavras o que cada um representa para você na prática.</p>
+            <div id="top5-meaning-list"></div>
             <button id="goto-step3-btn" class="primary-btn">Continuar para Motivadores</button>
         </section>
 
         <!-- ETAPA 3: MOTIVADORES E SABOTADORES -->
         <section id="step3" class="step">
             <h2>Etapa 3: Motivadores e Sabotadores</h2>
-            <p class="instructions-box">
-    		Ótimo! Agora vamos dar profundidade a esses valores. Todo valor tem duas faces: a "luz" que te impulsiona (seu <b>Motivador</b>) e a "sombra" que te limita (seu <b>Sabotador</b>).</br>  
-	        Para cada valor abaixo, descreva como ele te ajuda a avançar e como ele te atrapalha no dia a dia.
-	    </p>
+            <!-- TEXTO DA ETAPA 3 ATUALIZADO -->
+            <p class="instructions-box">Excelente! Agora vamos dar profundidade aos seus <strong>5 valores principais</strong>. Todo valor tem duas faces: a "luz" que te impulsiona (seu <b>Motivador</b>) e a "sombra" que te limita (seu <b>Sabotador</b>).  
+Para cada um deles, descreva como esse valor te ajuda a avançar e como ele te atrapalha no dia a dia.</p>
             <div class="example-box">
     		<p><strong>Exemplo prático para o valor "Honestidade":</strong></p>
     		<ul>
-        	    <li>
-            		<strong>Ajuda (Motivador):</strong> "Minha 'Honestidade' me ajuda a construir confiança com meus clientes, pois sou transparente sobre prazos e desafios, o que fortalece a relação a longo prazo."
-        	    </li>
-        	    <li>
-            		<strong>Atrapalha (Sabotador):</strong> "Às vezes, minha 'Honestidade' excessiva me atrapalha, pois dou feedbacks diretos demais em momentos inoportunos, o que pode magoar pessoas e gerar conflitos desnecessários."
-        	    </li>
+        	    <li><strong>Ajuda (Motivador):</strong> "Minha 'Honestidade' me ajuda a construir confiança com meus clientes, pois sou transparente sobre prazos e desafios, o que fortalece a relação a longo prazo."</li>
+        	    <li><strong>Atrapalha (Sabotador):</strong> "Às vezes, minha 'Honestidade' excessiva me atrapalha, pois dou feedbacks diretos demais em momentos inoportunos, o que pode magoar pessoas e gerar conflitos desnecessários."</li>
     		</ul>
 	    </div>
-            <div id="top5-triggers-list">
-                <!-- Cards para motivadores/sabotadores serão inseridos aqui -->
-            </div>
+            <div id="top5-triggers-list"></div>
             <button id="goto-step4-btn" class="primary-btn">Iniciar a Prova de Fogo</button>
         </section>
 
         <!-- ETAPA 4: A PROVA DE FOGO -->
         <section id="step4" class="step">
             <h2>Etapa 4: A Prova de Fogo</h2>
-            <p class="instructions-box">A vida é feita de escolhas. Nos cenários abaixo, qual decisão reflete mais quem você é? Escolha a opção que mais pesaria para você.</p>
-            <div id="confrontation-area">
-                <!-- Os confrontos serão inseridos aqui dinamicamente -->
-            </div>
-            <div id="progress-bar-container">
-                <div id="progress-bar"></div>
-            </div>
+            <!-- TEXTO DA ETAPA 4 ATUALIZADO -->
+            <p class="instructions-box">Esta é a etapa final para definir a hierarquia dos seus valores. Você será confrontado com cenários que colocam seus valores em uma "disputa" direta. Para cada par, <strong>selecione a opção que mais pesa para você</strong>. Sua escolha revelará sua verdadeira ordem de prioridades.</p>
+            <div id="confrontation-area"></div>
+            <div id="progress-bar-container"><div id="progress-bar"></div></div>
             <p id="progress-text"></p>
             <button id="goto-step5-btn" class="primary-btn" disabled>Analisar Ranking Final</button>
         </section>
 
         <!-- ETAPA 5: RELATÓRIO FINAL E ENVIO -->
         <section id="step5" class="step">
-            <div id="final-report">
-                <!-- O relatório final será inserido aqui -->
-            </div>
+            <div id="final-report"></div>
             <div class="email-form">
                 <h3>Gostou do resultado?</h3>
                 <p>Receba uma cópia completa deste relatório no seu e-mail.</p>
@@ -138,14 +116,10 @@
             <span id="modal-close-btn" class="close-btn">&times;</span>
             <h3>Trocar Valor</h3>
             <p>Qual valor você gostaria de colocar no lugar de <b id="value-to-replace"></b>?</p>
-            <ul id="replacement-list">
-                <!-- Lista de valores para troca será inserida aqui -->
-            </ul>
+            <ul id="replacement-list"></ul>
         </div>
     </div>
 
-    <!-- Script principal da aplicação -->
     <script src="script.js"></script>
-
 </body>
 </html>

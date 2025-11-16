@@ -278,7 +278,22 @@ document.addEventListener('DOMContentLoaded', () => {
     	.then(data => {
             if (data.status === 'success') {
             	alert('Seu relatório foi enviado com sucesso! Verifique sua caixa de e-mail.');
-            	sendButton.textContent = 'Enviado!';
+            	    // --- LÓGICA DE LIMPEZA ADICIONADA AQUI ---
+        
+        	    // 1. Limpa os campos de nome e e-mail
+        	    document.getElementById('user-name').value = '';
+        	    document.getElementById('user-email').value = '';
+        
+		    // 2. Reativa o botão e restaura o texto original após um pequeno atraso
+        	    setTimeout(() => {
+            	        sendButton.disabled = false;
+            	        sendButton.textContent = 'Enviar Relatório por E-mail';
+        	    }, 2000); // Atraso de 2 segundos (2000 ms)
+
+		    // 3. (Opcional, mas recomendado) Rola a página de volta para o topo
+        	    window.scrollTo({ top: 0, behavior: 'smooth' });
+
+        		// --- FIM DA LÓGICA DE LIMPEZA ---
             } else {
             	// Se o Apps Script retornar um erro, vamos mostrá-lo.
             	console.error('Erro retornado pelo servidor:', data.message);
